@@ -1,96 +1,141 @@
-# Vertical Slice Plan
+# Echoes Vertical Slice Plan
 
-## Goal
-Create a polished 10–15 minute playable JRPG slice that proves the core fantasy: exploration, cinematic presentation, random encounter transition, ATB combat, character progression, and a boss payoff.
+## Purpose
 
-## Slice Flow
-1. Title screen
-2. Short opening field scene in Rookfen
-3. Player gains control of Kael
-4. Exploration/tutorial interaction
-5. One optional treasure chest
-6. Step-based random encounter
-7. ATB battle tutorial against a Marsh Hound
-8. Short story scene at the entrance to Gnashtooth Hollow
-9. Mini-dungeon with 2–3 authored field screens
-10. One normal encounter variant
-11. Save point / recovery interaction
-12. Boss battle
-13. Victory scene and world-map reveal teaser
+The vertical slice should prove the complete JRPG loop using the opening sequence already defined in the Echoes game bible. Target play time: approximately 10–15 minutes for the first polished slice, with room to expand the full opening later.
 
-## Definition of Playable
-A build qualifies as the first playable when a player can launch the game, control Kael, trigger a battle, select Attack/Magic/Item/Defend, win or lose, return to the field, and reach a clear end-of-demo screen without editor intervention.
+## Canon Sequence
 
-## Must-Have Systems
-- Player field movement
-- Fixed cinematic field camera
-- Walkmesh/collision boundaries
-- Interaction prompts
+### Scene 1 — The Job
+**Location:** Cipher's apartment, Plates level
+
+Petra arrives with a high-paying black-site theft job. Cipher asks minimal questions. Dialogue options communicate attitude (pragmatic, cautious, aggressive) without creating fail states.
+
+**Slice requirements**
 - Dialogue box
-- Scene transitions
-- Step-based encounter meter
-- ATB gauges
-- Command menu
-- Target selection
-- HP/MP updates
-- Attack, Fire, Cure, Item, Defend
-- Basic enemy AI
-- Victory/defeat handling
-- EXP and Gil reward screen
-- Simple inventory
-- Save/load checkpoint
-- Boss encounter
+- 3-choice response UI
+- Basic camera blocking
+- Quest objective update
 
-## Deliberately Deferred
-Do not block the vertical slice on these:
-- Full world map
-- Full party roster
-- Summons
-- Limit Break tree
-- Advanced Materia combinations
-- Crafting
-- Chocobos
-- Minigame hub
-- Large inventory
-- Shops beyond one simple vendor
-- Full cinematic voice acting
+### Scene 2 — Infiltration
+**Location:** Sentinel Black Site exterior
 
-## Content Budget
-### Player
-- Kael: 1 field model, 1 battle model (may be shared initially)
-- Animations: idle, walk, run, battle idle, attack, hit, cast, defend, victory, KO
+Cipher encounters two Sentinel Troopers. The bible allows stealth or combat; the first implementation may force combat until stealth exists.
 
-### Enemies
-- Marsh Hound
-- Mire Wasp or Sewer Vermin
-- Gnashtooth boss
+**Tutorial battle**
+- Cipher Vocc
+- 2 Sentinel Troopers
+- ATB explanation
+- Attack
+- Defend
+- Victory/defeat
 
-### Environments
-- Rookfen opening field
-- Gnashtooth entrance
-- Gnashtooth interior A
-- Gnashtooth interior B
-- Boss arena
+Sentinel Trooper bible stats:
+- HP 20
+- Attack 6
+- Defense 4
+- Speed 6
 
-### UI
-- Main menu
-- Dialogue box
-- ATB combat HUD
-- Command menu
-- Target cursor
-- Victory/results panel
-- Pause/status menu (minimal)
+### Scene 3 — The Descent
+**Location:** Black Site interior
 
-## First Evening in Unity
-1. Create URP project.
-2. Copy `Scripts/Core` and `Scripts/Battle` into `Assets/Scripts/Core`.
-3. Compile before adding any scene logic.
-4. Create a greybox battle scene with capsules/cubes only.
-5. Wire `BattleEngine` to a lightweight MonoBehaviour presenter.
-6. Display HP, MP, and ATB using basic Unity UI.
-7. Make Attack selectable and complete one full player/enemy exchange.
-8. Add Fire, Cure, and Defend.
-9. Only after combat works, replace greybox visuals with character/environment assets.
+Explore deeper into the facility. Biological material appears on walls and a soft hum increases. Optional research notes/audio logs foreshadow the classified program.
 
-## Quality Bar
-The slice should feel intentionally small, not unfinished. Fewer screens with strong camera composition, music, transitions, and responsive menus are preferable to a large empty area.
+**Slice requirements**
+- Field movement
+- Interactable object
+- One optional lore pickup
+- One additional encounter
+
+Candidate enemies from the bible:
+- Sentinel Trooper
+- Surveillance Drone
+- Remnant Collector
+
+### Scene 4 — The Discovery
+**Location:** Extraction Chamber
+
+Cipher finds Kira suspended in a tank and wired to machinery. He realizes this was never a simple data theft.
+
+Bible dialogue choices:
+- "Who are you?"
+- "This is insane. I'm getting you out."
+- Say nothing and begin disconnecting her
+
+Alarms trigger after the interaction.
+
+### Scene 5 — The Guardian
+**Location:** Extraction Chamber
+
+First boss battle.
+
+Bible boss stats:
+- HP 220
+- Attack 14
+- Defense 12
+- Speed 8
+
+Mechanics:
+- SWEEP attacks the whole party
+- LOCKDOWN activates during phase 2
+- LOCKDOWN grants 50% damage reduction
+- Kira's RESONANCE can disrupt LOCKDOWN early
+
+For the earliest playable version, Kira may be represented as a scripted support action rather than a full controllable party member.
+
+### Scene 6 — The Escape
+
+Kira is conscious but disoriented. Cipher carries or escorts her through collapsing corridors toward the emergency exit.
+
+**Initial implementation**
+- Short linear escape route
+- Alarm lighting/audio
+- One encounter or scripted obstruction
+- Exit trigger
+
+### Scene 7 — The Outside
+**Location:** The Depths
+
+The player sees the industrial wasteland of the Depths for the first time. Petra appears and directs Cipher and Kira toward a safe house.
+
+End the vertical slice on this reveal.
+
+## ATB Amendment
+
+The original bible describes turn-based initiative based on Speed. Current implementation direction is Active Time Battle.
+
+For the prototype:
+- Each participant owns an ATB gauge
+- Speed determines gauge fill rate
+- A full gauge enables an action
+- Gauge resets after the action resolves
+- Enemy ATB continues progressing during battle
+
+This is a project implementation amendment and should remain clearly distinguished from the original bible text.
+
+## Definition of Done
+
+The vertical slice is successful when a new player can:
+
+1. Watch/play the opening conversation
+2. Control Cipher through a field scene
+3. Trigger and complete an ATB battle
+4. Explore the Black Site
+5. Discover Kira
+6. Defeat the Guardian
+7. Escape to the Depths
+8. Reach an obvious end-of-slice moment
+
+## Explicitly Out of Scope Until This Works
+
+- Full 4-member party
+- Complete progression system
+- Large inventory/economy
+- World map
+- Minigames
+- Multiple towns
+- Full relationship branching
+- Large spell/ability catalog
+- Final-quality cinematics
+
+The goal is not breadth. The goal is one convincing, polished chain of field exploration, story, ATB combat, boss mechanics, and payoff.

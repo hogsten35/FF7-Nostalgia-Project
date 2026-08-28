@@ -1,0 +1,51 @@
+{
+  "encounterId": "sentinel_extraction_guardian_boss",
+  "displayName": "Extraction Chamber Guardian",
+  "battleBackground": "sentinel_extraction_chamber",
+  "musicCue": "boss_guardian_01",
+  "canEscape": false,
+  "players": [
+    {
+      "characterId": "char_cipher_vocc_001",
+      "name": "Cipher Vocc"
+    }
+  ],
+  "supportActors": [
+    {
+      "characterId": "char_kira_001",
+      "name": "Kira",
+      "role": "scripted_support",
+      "ability": "Resonance",
+      "notes": "For the first vertical slice, Kira may interrupt LOCKDOWN as a scripted support action rather than a fully controllable party member."
+    }
+  ],
+  "enemies": [
+    {
+      "enemyId": "boss_extraction_chamber_guardian",
+      "name": "Extraction Chamber Guardian",
+      "hp": 220,
+      "attack": 14,
+      "defense": 12,
+      "speed": 8,
+      "phases": [
+        {
+          "phase": 1,
+          "condition": "hp_above_50_percent",
+          "abilities": ["SWEEP"]
+        },
+        {
+          "phase": 2,
+          "condition": "hp_at_or_below_50_percent",
+          "abilities": ["SWEEP", "LOCKDOWN"],
+          "effects": {
+            "LOCKDOWN": {
+              "damageReductionPercent": 50,
+              "canBeDisruptedBy": "Resonance"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "notes": "Boss statistics and core mechanics are taken from the Echoes game bible. Precise ATB timings, phase trigger behavior, and scripted Kira support implementation remain provisional."
+}

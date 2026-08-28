@@ -1,40 +1,38 @@
 {
-  "encounterId": "rookfen_road_001",
-  "displayName": "Roadside Ambush",
-  "battleBackground": "rookfen_mudroad_dusk",
+  "encounterId": "sentinel_blacksite_patrol_001",
+  "displayName": "Black Site Patrol",
+  "battleBackground": "sentinel_blacksite_exterior",
   "musicCue": "battle_standard_01",
   "canEscape": true,
   "players": [
     {
-      "characterId": "char_kael_001",
-      "level": 7
+      "characterId": "char_cipher_vocc_001",
+      "name": "Cipher Vocc",
+      "level": 1
     }
   ],
   "enemies": [
     {
-      "enemyId": "enemy_marsh_hound",
-      "name": "Marsh Hound",
-      "level": 5,
-      "hp": 210,
-      "mp": 0,
-      "strength": 18,
-      "defense": 8,
-      "magic": 6,
-      "magicDefense": 7,
-      "speed": 24,
-      "expReward": 38,
-      "gilReward": 22,
-      "dropTable": [
-        {
-          "itemId": "potion",
-          "chance": 0.18
-        }
-      ]
+      "enemyId": "enemy_sentinel_trooper_001",
+      "name": "Sentinel Trooper",
+      "hp": 20,
+      "attack": 6,
+      "defense": 4,
+      "speed": 6
+    },
+    {
+      "enemyId": "enemy_sentinel_trooper_002",
+      "name": "Sentinel Trooper",
+      "hp": 20,
+      "attack": 6,
+      "defense": 4,
+      "speed": 6
     }
   ],
   "tutorialFlags": {
     "showATBExplanation": true,
     "showAttackExplanation": true,
-    "showMagicExplanation": true
-  }
+    "showDefendExplanation": true
+  },
+  "notes": "Canon opening encounter from the Echoes game bible. Reward values and ATB tuning remain provisional."
 }
