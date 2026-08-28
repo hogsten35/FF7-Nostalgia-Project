@@ -1,38 +1,50 @@
-# FF7 Nostalgia Project
+# Echoes
 
-Foundation repository for an original classic-JRPG project inspired by late-1990s console RPG systems and presentation.
+**Valence. Extraction. Collapse.**
+
+Echoes is a character-driven JRPG about complicity, systemic collapse, and moral compromise. The project studies the pacing, readability, ATB pressure, cinematic field presentation, and party-driven structure of classic late-1990s console RPGs while using original characters, story, setting, assets, code, and game data.
+
+## Current Canon
+
+- Setting: Valence, a megacity powered by extraction of Remnant
+- Protagonist: Cipher Vocc, former Sentinel Corps command soldier
+- Key characters: Kira, Petra Serin, Darrow Hayes, Maisie Tang
+- Major additional antagonist: Korvoth — a dark sorcerer driven by an insatiable thirst for knowledge
+- Opening: Petra hires Cipher for a black-site theft; Cipher discovers Kira in an extraction chamber and the job becomes an escape
+- Combat direction: Active Time Battle (ATB), with Speed controlling gauge fill rate
 
 ## Repository Structure
 
 ```text
 GameData/
-  Schemas/      JSON Schema contracts
-  Examples/     Example save payloads
+  Schemas/      Save/data contracts
+  Examples/     Character save examples
+  Encounters/   Encounter and boss definitions
 Scripts/
-  Core/         Engine-agnostic C# gameplay logic
+  Core/         Engine-agnostic ATB logic
+  Battle/       Battle actors, commands, damage, AI, battle flow
+  Field/        Unity-facing field and encounter adapters
 Prompts/
   ComfyUI/      Character, enemy, and prop prompt bank
-Docs/           Architecture and Unity integration notes
+Docs/           Architecture, canon, Unity integration, vertical slice plan
 ```
 
-## Included Foundation
+## Vertical Slice Goal
 
-- Character Save State JSON Schema
-- Example hero save data
-- Pure C# `ATBCharacter`
-- Pure C# `ATBManager` with `OnTurnReady`
-- ComfyUI hero turnaround prompt
-- Monster/boss prompt bank
-- Modular environment-prop prompts
-- Unity adapter guidance
-- First-hour-at-home implementation checklist
+Build the opening Black Site sequence:
 
-## Core Rule
+1. The Job — Cipher's apartment on the Plates
+2. Infiltration — first Sentinel patrol encounter
+3. The Descent — facility exploration and combat
+4. The Discovery — Kira in the extraction chamber
+5. The Guardian — first boss battle
+6. The Escape — collapsing facility
+7. The Outside — first reveal of the Depths and transition to the larger game
 
-Gameplay-domain code should remain independent from Unity whenever practical. Unity-facing MonoBehaviours should handle input, timing, animation, UI, audio, and scene integration while delegating battle rules to plain C# classes.
+## Core Engineering Rule
 
-## Recommended Next Milestone
+Gameplay-domain code should remain independent from Unity wherever practical. Unity MonoBehaviours handle input, presentation, animation, UI, audio, and scene integration while delegating battle rules to plain C# classes.
 
-Build one tiny battle sandbox with one hero, one enemy, ATB gauges, Attack, HP damage, and victory/defeat. Once the loop is stable, layer in party members, Materia-style commands, status effects, animation, VFX, and additional battle systems.
+## Current Priority
 
-> Use original characters, assets, names, story, code, and game data. The project can study classic JRPG design patterns without redistributing proprietary game content.
+Get one polished 10–15 minute vertical slice playable before expanding scope. Advanced progression, large party systems, minigames, world-map content, and broader systems wait until the core field → encounter → battle → story loop is fun.
