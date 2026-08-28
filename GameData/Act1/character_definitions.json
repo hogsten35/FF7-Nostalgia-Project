@@ -1,0 +1,25 @@
+{
+  "characters": {
+    "cipher_vocc": {
+      "character_id": "cipher_vocc",
+      "name": "Cipher Vocc",
+      "is_player_controlled": true,
+      "role": "tank_physical",
+      "base_stats": {
+        "hp": 120,
+        "mp": 0,
+        "attack": 14,
+        "defense": 12,
+        "magic": 1,
+        "magic_defense": 0,
+        "speed": 8
+      },
+      "abilities": ["redirect"],
+      "limit_break": "recall",
+      "source_notes": {
+        "hp_attack_defense_speed": "From Echoes Game Bible v1.1 starting stats.",
+        "mp_magic_magic_defense": "Not defined by the bible. Neutral engine-safe defaults only; not story canon."
+      }
+    }
+  }
+}
