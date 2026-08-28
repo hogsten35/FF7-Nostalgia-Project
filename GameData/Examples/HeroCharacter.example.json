@@ -1,0 +1,58 @@
+{
+  "characterId": "char_kael_001",
+  "name": "Kael Varden",
+  "level": 27,
+  "experience": 84210,
+  "stats": {
+    "hp": { "current": 1842, "max": 2150 },
+    "mp": { "current": 132, "max": 168 },
+    "strength": 58,
+    "speed": 37
+  },
+  "equipment": {
+    "weapon": { "itemId": "wpn_iron_requiem", "name": "Iron Requiem", "slotCount": 6 },
+    "armor": { "itemId": "arm_guardian_vest", "name": "Guardian Vest", "slotCount": 4 }
+  },
+  "materiaLoadout": {
+    "weaponSlots": [
+      {
+        "slotId": 0,
+        "linked": true,
+        "linkedSlotId": 1,
+        "materia": {
+          "materiaId": "mat_flame_001",
+          "name": "Flame",
+          "type": "magic",
+          "level": 2,
+          "ap": { "current": 4280, "nextLevel": 6000, "master": 35000 }
+        }
+      },
+      {
+        "slotId": 1,
+        "linked": true,
+        "linkedSlotId": 0,
+        "materia": {
+          "materiaId": "mat_spread_001",
+          "name": "Spread",
+          "type": "support",
+          "level": 2,
+          "ap": { "current": 3100, "nextLevel": 5000, "master": 25000 }
+        }
+      }
+    ],
+    "armorSlots": [
+      {
+        "slotId": 0,
+        "linked": false,
+        "linkedSlotId": null,
+        "materia": {
+          "materiaId": "mat_restore_001",
+          "name": "Restore",
+          "type": "magic",
+          "level": 3,
+          "ap": { "current": 13400, "nextLevel": 20000, "master": 45000 }
+        }
+      }
+    ]
+  }
+}
