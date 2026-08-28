@@ -4,6 +4,7 @@ namespace FF7Nostalgia.Core.Battle
     {
         Attack,
         Magic,
+        Summon,
         Item,
         Defend
     }
