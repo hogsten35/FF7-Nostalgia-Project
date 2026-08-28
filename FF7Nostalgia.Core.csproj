@@ -9,5 +9,9 @@
   <ItemGroup>
     <Compile Include="Scripts/**/*.cs" />
     <Compile Include="Tools/BattleHarness/Program.cs" />
+    <Content Include="GameData/Act1/*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>GameData/Act1/%(Filename)%(Extension)</Link>
+    </Content>
   </ItemGroup>
 </Project>
