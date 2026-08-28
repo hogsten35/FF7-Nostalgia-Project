@@ -1,8 +1,14 @@
 using FF7Nostalgia.Core.Battle;
 using FF7Nostalgia.Core.Data;
+using FF7Nostalgia.Core.Magic;
 
 var contentDirectory = Path.Combine(AppContext.BaseDirectory, "GameData", "Act1");
 var content = Act1ContentLoader.LoadFromDirectory(contentDirectory);
+var spellCatalog = SpellCatalog.Load(Path.Combine(AppContext.BaseDirectory, "GameData", "Magic", "spell_definitions.json"));
+
+var implementedSpells = spellCatalog.All.Values.Where(spell => spell.Implemented).ToArray();
+foreach (var spell in implementedSpells)
+    _ = SpellCommandFactory.Create(spell);
 
 var cipherDefinition = content.Characters.Characters["cipher_vocc"];
 var trooperDefinition = content.Enemies.Enemies["sentinel_trooper"];
@@ -59,6 +65,8 @@ Console.WriteLine("ECHOES - Act 1 Battle Harness");
 Console.WriteLine("Black Site patrol: Cipher Vocc vs. 2 Sentinel Troopers");
 Console.WriteLine("Enemy HP is intentionally hidden.");
 Console.WriteLine("Sentinel behavior is loaded from GameData/Act1/enemy_definitions.json.");
+Console.WriteLine($"Magic catalog loaded: {spellCatalog.All.Count} spells ({implementedSpells.Length} damage/healing spells executable).\n");
+Console.WriteLine("Cipher has no canon MP/magic allocation yet, so magic is not assigned to him in this harness.");
 Console.WriteLine("Commands: 1 Attack | 4 Defend\n");
 
 while (engine.Result == BattleResult.InProgress)
