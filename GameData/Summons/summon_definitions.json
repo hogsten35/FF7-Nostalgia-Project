@@ -1,0 +1,17 @@
+{
+  "summons": {},
+  "system_rules": {
+    "enabled": true,
+    "available_in_vertical_slice": false,
+    "default_resource": "mp",
+    "allow_multiple_summons_per_battle": true,
+    "cinematic_sequence_required": true,
+    "enemy_hp_visibility_unchanged": true,
+    "notes": [
+      "The summon framework exists globally but no summon is unlocked, assigned, or usable in the opening vertical slice.",
+      "Future summons may use MP or another resource, but that resource must be declared per summon.",
+      "Summon attacks may target all enemies without exposing enemy HP, percentages, or health bars.",
+      "Presentation hooks are intentionally data-driven so Unity can provide model, animation, VFX, audio, camera, and return-to-battle sequences later."
+    ]
+  }
+}
