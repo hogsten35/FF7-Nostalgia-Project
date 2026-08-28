@@ -1,0 +1,347 @@
+{
+  "scenes": {
+    "black_site_exterior": {
+      "scene_id": "black_site_exterior_01",
+      "scene_name": "Black Site Exterior Approach",
+      "location": "Sentinel industrial sector",
+      "time_of_day": "night",
+      "description": "Facility disguised as power generation plant.",
+      "facility_alert_level": "green",
+      "checkpoints": [
+        {
+          "checkpoint_id": "checkpoint_1_perimeter",
+          "checkpoint_name": "PERIMETER APPROACH",
+          "objective": "Reach the main entrance undetected (or avoid patrols)",
+          "details": "Two patrol routes visible. Can scout with binoculars.",
+          "choice_points": [
+            {
+              "choice_id": "perimeter_stealth_vs_direct",
+              "question": "How do you approach the guards?",
+              "options": [
+                {
+                  "option_id": "stealth_patrols",
+                  "text": "Stealth - avoid patrols",
+                  "duration": "~3 minutes",
+                  "risk": "low",
+                  "enemies": 0,
+                  "alerts_triggered": 0,
+                  "effect": "facility_alert_level remains green",
+                  "flag": "checkpoint_1_stealth"
+                },
+                {
+                  "option_id": "direct_combat",
+                  "text": "Direct - combat encounter",
+                  "duration": "~1 minute",
+                  "risk": "moderate",
+                  "enemies": 2,
+                  "enemy_types": [
+                    "sentinel_trooper"
+                  ],
+                  "alerts_triggered": 1,
+                  "effect": "facility_alert_level becomes yellow",
+                  "flag": "checkpoint_1_combat"
+                }
+              ]
+            }
+          ],
+          "completion_requirement": "Reach security gate",
+          "completion_flag": "checkpoint_1_complete"
+        },
+        {
+          "checkpoint_id": "checkpoint_2_security_gate",
+          "checkpoint_name": "SECURITY GATE",
+          "objective": "Pass security checkpoint",
+          "details": "Guard (NPC, non-hostile) scans Cipher's keycard. Keycard is forged but passes scan.",
+          "npc_interaction": {
+            "guard_name": "Gate_Guard_01",
+            "guard_dialogue": "Maintenance shift?",
+            "dialogue_options": [
+              {
+                "option_id": "gate_guard_lie_1",
+                "text": "Generator diagnostics.",
+                "success_chance": 1.0,
+                "effect": "Gate opens. No alert."
+              },
+              {
+                "option_id": "gate_guard_lie_2",
+                "text": "Power supply audit.",
+                "success_chance": 1.0,
+                "effect": "Gate opens. No alert."
+              },
+              {
+                "option_id": "gate_guard_silent",
+                "text": "[Silent nod, walk past.]",
+                "success_chance": 1.0,
+                "effect": "Guard watches Cipher pass. Gate opens. No alert."
+              }
+            ]
+          },
+          "completion_requirement": "Gate opens. Player enters facility.",
+          "completion_flag": "checkpoint_2_complete"
+        },
+        {
+          "checkpoint_id": "checkpoint_3_entrance_vestibule",
+          "checkpoint_name": "ENTRANCE VESTIBULE",
+          "objective": "Reach elevator to descend",
+          "details": "Interior. Surveillance drones on ceiling. Two camera cones sweep the hall. Cipher is operating alone.",
+          "hazards": [
+            {
+              "hazard_id": "camera_sweep_1",
+              "type": "surveillance_camera",
+              "coverage": "50% of room",
+              "sweep_rate": "8 seconds per cycle"
+            },
+            {
+              "hazard_id": "camera_sweep_2",
+              "type": "surveillance_camera",
+              "coverage": "50% of room",
+              "sweep_rate": "8 seconds per cycle"
+            }
+          ],
+          "choice_points": [
+            {
+              "choice_id": "vestibule_evasion_tactics",
+              "question": "How do you bypass security?",
+              "options": [
+                {
+                  "option_id": "destroy_drones",
+                  "text": "Destroy drones",
+                  "duration": "~1 minute",
+                  "risk": "high",
+                  "enemies": 1,
+                  "enemy_types": [
+                    "surveillance_drone"
+                  ],
+                  "alerts_triggered": 2,
+                  "effect": "facility_alert_level becomes yellow or red",
+                  "flag": "checkpoint_3_destroyed_drone"
+                },
+                {
+                  "option_id": "wait_and_move",
+                  "text": "Wait and move between sweeps",
+                  "duration": "~4-5 minutes",
+                  "risk": "low",
+                  "effect": "No alerts. Slow but safe.",
+                  "flag": "checkpoint_3_timing"
+                }
+              ]
+            }
+          ],
+          "completion_requirement": "Reach elevator",
+          "completion_flag": "checkpoint_3_complete"
+        }
+      ],
+      "progression_flag": "black_site_exterior_complete"
+    },
+    "facility_interior": {
+      "scene_id": "facility_interior_01",
+      "scene_name": "Facility Interior - Descent",
+      "location": "Sentinel Black Site - Lower Levels",
+      "description": "Biological material on walls, soft humming sounds. Corporate/scientific aesthetic.",
+      "facility_alert_level": "green",
+      "checkpoints": [
+        {
+          "checkpoint_id": "checkpoint_4_descent",
+          "checkpoint_name": "FACILITY DESCENT",
+          "objective": "Reach extraction chamber",
+          "details": "Navigate through corridors. Multiple combat encounters or stealth avoidance.",
+          "encounters": [
+            {
+              "encounter_id": "encounter_1_guards",
+              "enemy_count": 2,
+              "enemy_types": [
+                "sentinel_trooper"
+              ],
+              "optional": false,
+              "reward_multiplier": 1.0
+            },
+            {
+              "encounter_id": "encounter_2_collectors",
+              "enemy_count": 1,
+              "enemy_types": [
+                "remnant_collector"
+              ],
+              "optional": true,
+              "reward_multiplier": 1.5
+            }
+          ],
+          "exploration_items": [
+            {
+              "item_id": "research_note_1",
+              "name": "Research Note - Subject Status",
+              "type": "lore_item",
+              "location": "First corridor, east wall",
+              "hint": "Subject has unusual resilience to sedation...",
+              "flag": "found_research_note_1"
+            },
+            {
+              "item_id": "audio_log_1",
+              "name": "Audio Log - Dr. Chen",
+              "type": "lore_item",
+              "location": "Second chamber, equipment console",
+              "hint": "...the program has taken lives. I don't know how much longer...",
+              "flag": "found_audio_log_1"
+            }
+          ],
+          "completion_requirement": "Reach extraction chamber door",
+          "completion_flag": "checkpoint_4_complete"
+        },
+        {
+          "checkpoint_id": "checkpoint_5_extraction_chamber",
+          "checkpoint_name": "EXTRACTION CHAMBER DISCOVERY",
+          "objective": "Discover Kira and escape with her",
+          "details": "See Kira in tank. Trigger discovery dialogue. Trigger Guardian boss fight.",
+          "story_trigger": "kira_discovery_dialogue",
+          "boss_trigger": "extraction_chamber_guardian",
+          "completion_requirement": "Guardian defeated. Extraction chamber door opens.",
+          "completion_flag": "checkpoint_5_complete"
+        }
+      ],
+      "progression_flag": "facility_interior_complete"
+    },
+    "escape_sequence": {
+      "scene_id": "escape_sequence_01",
+      "scene_name": "Facility Escape",
+      "location": "Sentinel Black Site - All Levels",
+      "description": "Facility in RED ALERT. Reinforcements incoming. Time-sensitive.",
+      "facility_alert_level": "red",
+      "time_limit": "600 seconds",
+      "checkpoints": [
+        {
+          "checkpoint_id": "checkpoint_6_chamber_to_corridor",
+          "checkpoint_name": "CHAMBER TO CORRIDOR",
+          "objective": "Exit extraction chamber. Get Kira to safety.",
+          "details": "Kira is weak (30% movement speed).",
+          "options": [
+            {
+              "option_id": "carry_kira",
+              "text": "Carry Kira",
+              "effect": "Cipher speed reduced but Kira protected",
+              "flag": "escape_carry_kira"
+            },
+            {
+              "option_id": "kira_walks",
+              "text": "Kira walks on her own",
+              "effect": "Slower progress. Kira vulnerable to damage.",
+              "flag": "escape_kira_walks"
+            }
+          ],
+          "completion_requirement": "Reach next corridor",
+          "completion_flag": "checkpoint_6_complete"
+        },
+        {
+          "checkpoint_id": "checkpoint_7_collapsing_corridor",
+          "checkpoint_name": "COLLAPSING CORRIDOR",
+          "objective": "Navigate debris. Avoid or combat enemies.",
+          "details": "Facility structural damage. Sections of ceiling collapsing.",
+          "hazards": [
+            {
+              "hazard_id": "falling_debris_1",
+              "type": "environmental",
+              "damage": 10,
+              "frequency": "every 3 turns"
+            }
+          ],
+          "choice_points": [
+            {
+              "choice_id": "corridor_path",
+              "question": "Which way?",
+              "options": [
+                {
+                  "option_id": "left_corridor",
+                  "text": "Left corridor",
+                  "description": "Clear path",
+                  "enemies": 2,
+                  "enemy_types": [
+                    "sentinel_trooper"
+                  ],
+                  "duration": "~2 minutes"
+                },
+                {
+                  "option_id": "right_corridor",
+                  "text": "Right corridor",
+                  "description": "Debris obstacles",
+                  "enemies": 0,
+                  "duration": "~3 minutes"
+                }
+              ]
+            }
+          ],
+          "completion_requirement": "Reach checkpoint",
+          "completion_flag": "checkpoint_7_complete"
+        },
+        {
+          "checkpoint_id": "checkpoint_8_secondary_objective",
+          "checkpoint_name": "SECONDARY OBJECTIVE",
+          "objective": "Optional: Destroy evidence",
+          "details": "Destroy data terminals in facility before escape.",
+          "optional": true,
+          "choices": [
+            {
+              "choice_id": "destroy_evidence",
+              "text": "Destroy terminals",
+              "effect": "Facility can't report Kira's extraction details. Slower pursuit later.",
+              "time_cost": "120 seconds",
+              "flag": "evidence_destroyed"
+            },
+            {
+              "choice_id": "skip_evidence",
+              "text": "Skip and escape",
+              "effect": "Facility fully alerts authorities. Increased bounty on Kira.",
+              "flag": "evidence_not_destroyed"
+            }
+          ],
+          "completion_flag": "checkpoint_8_complete"
+        },
+        {
+          "checkpoint_id": "checkpoint_9_main_entrance",
+          "checkpoint_name": "MAIN ENTRANCE RUSH",
+          "objective": "Reach main entrance",
+          "details": "Final enemy encounter: 1x Sentinel Commander + 2x Sentinel Troopers",
+          "encounter": {
+            "encounter_id": "final_escape_encounter",
+            "enemies": [
+              {
+                "enemy_id": "sentinel_commander_01",
+                "name": "Sentinel Commander",
+                "ref": "sentinel_commander"
+              },
+              {
+                "enemy_id": "sentinel_trooper_01",
+                "name": "Sentinel Trooper",
+                "ref": "sentinel_trooper"
+              },
+              {
+                "enemy_id": "sentinel_trooper_02",
+                "name": "Sentinel Trooper",
+                "ref": "sentinel_trooper"
+              }
+            ]
+          },
+          "completion_requirement": "Defeat all enemies or reach exit",
+          "completion_flag": "checkpoint_9_complete"
+        },
+        {
+          "checkpoint_id": "checkpoint_10_exterior_escape",
+          "checkpoint_name": "EXTERIOR ESCAPE",
+          "objective": "Final escape to Depths",
+          "details": "Fade to black. Cipher and Kira emerge in industrial wasteland.",
+          "progression_flag": "escape_sequence_complete",
+          "next_scene": "depths_reveal"
+        }
+      ]
+    }
+  },
+  "combat_presentation_rules": {
+    "enemy_hp_visible": false,
+    "boss_hp_visible": false,
+    "enemy_hp_numbers_visible": false,
+    "enemy_hp_percent_visible": false
+  },
+  "difficulty_rules": {
+    "target_feel": "old_school_demanding",
+    "grinding_expected": "light_to_moderate_when_underprepared",
+    "auto_level_scaling": false,
+    "bosses_are_preparation_checks": true
+  }
+}
