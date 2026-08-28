@@ -1,0 +1,294 @@
+{
+  "manifest": {
+    "version": "1.1",
+    "last_updated": "2026-08-28",
+    "act": "Act 1",
+    "act_name": "The Heist",
+    "total_scenes": 5,
+    "total_dialogue_trees": 3,
+    "total_enemies": 4,
+    "total_bosses": 1,
+    "total_checkpoints": 10
+  },
+  "file_structure": {
+    "dialogue_trees": "dialogue_trees.json",
+    "enemy_definitions": "enemy_definitions.json",
+    "boss_encounters": "boss_encounters.json",
+    "objectives_flow": "objectives_flow.json",
+    "loot_tables": "loot_tables.json"
+  },
+  "scene_sequence": [
+    {
+      "scene_number": 1,
+      "scene_id": "apartment_01",
+      "scene_name": "Apartment - Petra Hires Cipher",
+      "scene_type": "dialogue",
+      "duration_minutes": 5,
+      "key_npcs": [
+        "PETRA"
+      ],
+      "key_dialogue_tree": "dialogue_trees.apartment_petra_cipher",
+      "objectives": [],
+      "combat": false,
+      "progression_flags": [
+        "apartment_dialogue_complete_accepting",
+        "apartment_dialogue_complete_hesitant",
+        "apartment_dialogue_complete_doubtful"
+      ],
+      "next_scene": "black_site_exterior_01"
+    },
+    {
+      "scene_number": 2,
+      "scene_id": "black_site_exterior_01",
+      "scene_name": "Black Site Exterior Approach",
+      "scene_type": "exploration_combat",
+      "duration_minutes": 10,
+      "objectives_flow_ref": "objectives_flow.black_site_exterior",
+      "checkpoints": [
+        "checkpoint_1_perimeter",
+        "checkpoint_2_security_gate",
+        "checkpoint_3_entrance_vestibule"
+      ],
+      "enemies_present": [
+        "sentinel_trooper",
+        "surveillance_drone"
+      ],
+      "combat": true,
+      "exploration": true,
+      "progression_flags": [
+        "black_site_exterior_complete"
+      ],
+      "next_scene": "facility_interior_01"
+    },
+    {
+      "scene_number": 3,
+      "scene_id": "facility_interior_01",
+      "scene_name": "Facility Interior - Descent to Extraction Chamber",
+      "scene_type": "exploration_combat_boss",
+      "duration_minutes": 15,
+      "objectives_flow_ref": "objectives_flow.facility_interior",
+      "checkpoints": [
+        "checkpoint_4_descent",
+        "checkpoint_5_extraction_chamber"
+      ],
+      "enemies_present": [
+        "sentinel_trooper",
+        "remnant_collector"
+      ],
+      "boss_encounters": [
+        "extraction_chamber_guardian"
+      ],
+      "combat": true,
+      "exploration": true,
+      "boss": true,
+      "story_triggers": [
+        "kira_discovery_dialogue"
+      ],
+      "progression_flags": [
+        "facility_interior_complete",
+        "kira_discovery_complete",
+        "guardian_defeated"
+      ],
+      "next_scene": "escape_sequence_01"
+    },
+    {
+      "scene_number": 4,
+      "scene_id": "escape_sequence_01",
+      "scene_name": "Facility Escape",
+      "scene_type": "combat_escape",
+      "duration_minutes": 12,
+      "time_limit_seconds": 600,
+      "objectives_flow_ref": "objectives_flow.escape_sequence",
+      "checkpoints": [
+        "checkpoint_6_chamber_to_corridor",
+        "checkpoint_7_collapsing_corridor",
+        "checkpoint_8_secondary_objective",
+        "checkpoint_9_main_entrance",
+        "checkpoint_10_exterior_escape"
+      ],
+      "enemies_present": [
+        "sentinel_trooper"
+      ],
+      "story_triggers": [
+        "kira_vulnerable_state"
+      ],
+      "progression_flags": [
+        "escape_sequence_complete"
+      ],
+      "next_scene": "depths_reveal_01"
+    },
+    {
+      "scene_number": 5,
+      "scene_id": "depths_reveal_01",
+      "scene_name": "Depths Reveal - Safe House",
+      "scene_type": "dialogue_discovery",
+      "duration_minutes": 8,
+      "key_npcs": [
+        "PETRA",
+        "KIRA"
+      ],
+      "key_dialogue_tree": "dialogue_trees.depths_reveal",
+      "story_triggers": [
+        "petra_explanation",
+        "kira_orientation"
+      ],
+      "objectives": [],
+      "combat": false,
+      "progression_flags": [
+        "act_1_scene_1_complete"
+      ],
+      "next_scene": "act_1_safe_house_morning"
+    }
+  ],
+  "character_arcs": {
+    "CIPHER": {
+      "arc_name": "Pragmatism to Complicity",
+      "progression": [
+        {
+          "scene": "apartment_01",
+          "state": "Pragmatic. Just get paid."
+        },
+        {
+          "scene": "black_site_exterior_01",
+          "state": "Execution mode. Follow orders."
+        },
+        {
+          "scene": "extraction_chamber_01",
+          "state": "Realization: This is a person."
+        },
+        {
+          "scene": "escape_sequence_01",
+          "state": "Protecting Kira. Questioning why."
+        },
+        {
+          "scene": "depths_reveal_01",
+          "state": "Doubt. Complicity. Can't undo it."
+        }
+      ]
+    },
+    "KIRA": {
+      "arc_name": "Awakening",
+      "progression": [
+        {
+          "scene": "extraction_chamber_01",
+          "state": "Sedated. Unaware."
+        },
+        {
+          "scene": "extraction_chamber_01",
+          "state": "Awakens. Confused. Vulnerable."
+        },
+        {
+          "scene": "escape_sequence_01",
+          "state": "Weak but trusting Cipher."
+        },
+        {
+          "scene": "depths_reveal_01",
+          "state": "Resting. Beginning to understand."
+        }
+      ]
+    },
+    "PETRA": {
+      "arc_name": "Revelation",
+      "progression": [
+        {
+          "scene": "apartment_01",
+          "state": "Professional fixer. No emotion."
+        },
+        {
+          "scene": "depths_reveal_01",
+          "state": "Admits Kira is bigger than any job."
+        }
+      ]
+    }
+  },
+  "system_tracking": {
+    "facility_alert_level_progression": {
+      "start": "green",
+      "checkpoint_1": "green_or_yellow",
+      "checkpoint_3": "green_yellow_or_red",
+      "escape_sequence": "red"
+    },
+    "relationship_tracking": {
+      "kira_trust": {
+        "dialogue_choice_a": 1,
+        "dialogue_choice_b": 1,
+        "dialogue_choice_c": 2
+      }
+    },
+    "progression_flag_tree": {
+      "apartment_dialogue_complete": [
+        "black_site_accessible"
+      ],
+      "black_site_exterior_complete": [
+        "facility_interior_accessible"
+      ],
+      "kira_discovery_complete": [
+        "guardian_boss_triggered"
+      ],
+      "guardian_defeated": [
+        "escape_sequence_triggered"
+      ],
+      "escape_sequence_complete": [
+        "depths_reveal_triggered"
+      ],
+      "act_1_scene_1_complete": [
+        "act_1_continued"
+      ]
+    }
+  },
+  "loading_order_for_unity": [
+    {
+      "order": 1,
+      "file": "enemy_definitions.json",
+      "reason": "Foundation. All enemy stats/moves needed before scenes can instantiate them."
+    },
+    {
+      "order": 2,
+      "file": "boss_encounters.json",
+      "reason": "Boss data. Depends on understanding attack patterns and transitions."
+    },
+    {
+      "order": 3,
+      "file": "loot_tables.json",
+      "reason": "Reward data. Enemies/bosses drop from loot tables."
+    },
+    {
+      "order": 4,
+      "file": "dialogue_trees.json",
+      "reason": "Dialogue system. Can load independently but useful after enemies/bosses understood."
+    },
+    {
+      "order": 5,
+      "file": "objectives_flow.json",
+      "reason": "Scene orchestration. Final layer. Ties everything together."
+    }
+  ],
+  "total_content_summary": {
+    "total_dialogue_nodes": 47,
+    "total_enemy_types": 4,
+    "total_enemy_moves": 11,
+    "total_boss_phases": 2,
+    "total_checkpoints": 10,
+    "total_choice_points": 8,
+    "total_loot_items": 15,
+    "estimated_play_time_minutes": 50,
+    "estimated_credits_earned": 350,
+    "estimated_xp_earned": 450
+  },
+  "combat_rules": {
+    "system": "ATB",
+    "speed_controls_gauge_fill": true,
+    "enemy_hp_visible": false,
+    "boss_hp_visible": false,
+    "difficulty_target": "old_school_demanding",
+    "light_to_moderate_grinding_expected_when_underprepared": true,
+    "automatic_level_scaling": false
+  },
+  "canon_notes": [
+    "Cipher is the opening playable combatant.",
+    "Kira is a protected story NPC during the Guardian fight and is not an active combatant.",
+    "Petra does not join the active group until after the facility escape.",
+    "Darrow and Maisie are not present in the opening Guardian encounter.",
+    "Korvoth is a villain/major antagonist concept, not the protagonist; exact story integration remains intentionally undefined."
+  ]
+}
