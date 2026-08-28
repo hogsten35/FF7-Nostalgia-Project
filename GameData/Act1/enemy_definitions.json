@@ -1,0 +1,328 @@
+{
+  "enemies": {
+    "sentinel_trooper": {
+      "enemy_id": "sentinel_trooper",
+      "name": "Sentinel Trooper",
+      "description": "Basic infantry. Trained but not elite. Operates in squads.",
+      "tier": "common",
+      "base_stats": {
+        "hp": 20,
+        "attack": 6,
+        "defense": 4,
+        "magic": 2,
+        "speed": 6
+      },
+      "weaknesses": [],
+      "resistances": [],
+      "moves": [
+        {
+          "move_id": "shoot",
+          "name": "SHOOT",
+          "description": "Ranged attack. Targets front-line party member.",
+          "type": "physical",
+          "target": "single",
+          "damage": 8,
+          "accuracy": 1.0,
+          "action_probability": 0.6,
+          "condition": "default",
+          "animation": "trooper_shoot"
+        },
+        {
+          "move_id": "smoke_grenade",
+          "name": "SMOKE GRENADE",
+          "description": "Throws smoke, removes from combat for 1 turn.",
+          "type": "utility",
+          "target": "self",
+          "action_probability": 0.3,
+          "condition": "hp_below_50_percent",
+          "effect": "remove_from_combat_1_turn",
+          "animation": "trooper_smoke"
+        },
+        {
+          "move_id": "take_cover",
+          "name": "TAKE COVER",
+          "description": "When grouped, reduce damage taken by 50% for 1 turn.",
+          "type": "defensive",
+          "target": "self",
+          "action_probability": 0.1,
+          "condition": "in_group_2_plus",
+          "effect": "reduce_damage_50_percent_1_turn",
+          "animation": "trooper_cover"
+        }
+      ],
+      "ai_behavior": {
+        "solo": "Attack immediately. No tactical thinking.",
+        "grouped_2_3": "Use TAKE COVER to protect each other. Switch targets if ally dies.",
+        "grouped_4_plus": "One Trooper uses SMOKE GRENADE to escape, drawing attention."
+      },
+      "loot": {
+        "credits": {
+          "min": 15,
+          "max": 25
+        },
+        "equipment": [
+          {
+            "item_id": "sentinel_uniform_piece",
+            "name": "Sentinel Uniform Piece",
+            "type": "armor",
+            "rarity": "common",
+            "drop_rate": 0.5,
+            "stats": {
+              "defense": 2,
+              "hp": 5
+            }
+          }
+        ],
+        "consumables": [
+          {
+            "item_id": "rifle_clip",
+            "name": "Standard Rifle Clip",
+            "type": "ammo",
+            "drop_rate": 0.3,
+            "effect": "restores 1 ammo to ranged users"
+          }
+        ]
+      }
+    },
+    "surveillance_drone": {
+      "enemy_id": "surveillance_drone",
+      "name": "Surveillance Drone",
+      "description": "Automated security construct. Hovers. Fast but fragile. Prioritizes alerting security before attacking.",
+      "tier": "common",
+      "base_stats": {
+        "hp": 15,
+        "attack": 7,
+        "defense": 2,
+        "magic": 3,
+        "speed": 12
+      },
+      "weaknesses": [
+        "tech"
+      ],
+      "resistances": [],
+      "moves": [
+        {
+          "move_id": "scan_alert",
+          "name": "SCAN & ALERT",
+          "description": "Alerts facility security. Triggers alert escalation.",
+          "type": "utility",
+          "target": "none",
+          "action_probability": 1.0,
+          "condition": "spotted",
+          "effect": "facility_alert_level_plus_1",
+          "animation": "drone_scan"
+        },
+        {
+          "move_id": "energy_blast",
+          "name": "ENERGY BLAST",
+          "description": "Ranged energy attack. Targets random party member.",
+          "type": "magic",
+          "target": "single",
+          "damage": 10,
+          "accuracy": 0.95,
+          "action_probability": 0.5,
+          "condition": "default",
+          "animation": "drone_blast"
+        },
+        {
+          "move_id": "evasive_maneuver",
+          "name": "EVASIVE MANEUVER",
+          "description": "Dodge roll. Gain +3 Defense for 1 turn.",
+          "type": "defensive",
+          "target": "self",
+          "action_probability": 0.5,
+          "condition": "hp_below_50_percent",
+          "effect": "defense_plus_3_1_turn",
+          "animation": "drone_dodge"
+        }
+      ],
+      "ai_behavior": {
+        "first_action": "Always SCAN & ALERT (alerts facility)",
+        "subsequent": "ENERGY BLAST until HP < 50%, then EVASIVE MANEUVER",
+        "destroyed_quickly": "If destroyed < 2 turns, alert NOT escalated retroactively"
+      },
+      "loot": {
+        "credits": {
+          "min": 20,
+          "max": 35
+        },
+        "equipment": [
+          {
+            "item_id": "drone_core",
+            "name": "Drone Core",
+            "type": "weapon_mod",
+            "rarity": "common",
+            "drop_rate": 0.6,
+            "stats": {
+              "attack": 1
+            }
+          }
+        ],
+        "consumables": [
+          {
+            "item_id": "circuits",
+            "name": "Circuits",
+            "type": "crafting_material",
+            "drop_rate": 0.4,
+            "effect": "Crafting material for Petra's upgrades"
+          }
+        ]
+      }
+    },
+    "remnant_collector": {
+      "enemy_id": "remnant_collector",
+      "name": "Remnant Collector",
+      "description": "Bio-engineered construct tied to Remnant. Dangerous and unsettling; can drain health.",
+      "tier": "common",
+      "base_stats": {
+        "hp": 25,
+        "attack": 5,
+        "defense": 3,
+        "magic": 8,
+        "speed": 10
+      },
+      "weaknesses": [
+        "physical"
+      ],
+      "resistances": [],
+      "moves": [
+        {
+          "move_id": "life_drain",
+          "name": "LIFE DRAIN",
+          "description": "Magic attack. Targets single party member. Heals Collector by half damage dealt.",
+          "type": "magic",
+          "target": "single",
+          "damage": 12,
+          "accuracy": 1.0,
+          "action_probability": 0.6,
+          "condition": "default",
+          "effect": "heal_self_50_percent_damage",
+          "animation": "collector_drain"
+        },
+        {
+          "move_id": "resonance_pulse",
+          "name": "RESONANCE PULSE",
+          "description": "AOE magic attack. Hits entire party.",
+          "type": "magic",
+          "target": "all",
+          "damage": 8,
+          "accuracy": 0.95,
+          "action_probability": 0.3,
+          "condition": "facing_3_plus_enemies",
+          "animation": "collector_pulse"
+        },
+        {
+          "move_id": "hide",
+          "name": "HIDE",
+          "description": "Become invisible. Cannot be targeted. Returns to battle after 1 turn.",
+          "type": "utility",
+          "target": "self",
+          "action_probability": 0.1,
+          "condition": "hp_below_25_percent",
+          "effect": "invisible_1_turn_return_full_hp",
+          "animation": "collector_hide"
+        }
+      ],
+      "ai_behavior": {
+        "aggressive": "Prioritizes LIFE DRAIN for sustain.",
+        "area_control": "Uses RESONANCE PULSE if facing 3+ party members.",
+        "escape": "Uses HIDE as escape mechanism when critically wounded."
+      },
+      "loot": {
+        "credits": {
+          "min": 30,
+          "max": 50
+        },
+        "equipment": [
+          {
+            "item_id": "remnant_core",
+            "name": "Remnant Core",
+            "type": "accessory",
+            "rarity": "uncommon",
+            "drop_rate": 0.7,
+            "stats": {
+              "magic": 2
+            },
+            "passive_effect": "User gains 1 HP/turn in combat"
+          }
+        ],
+        "consumables": [
+          {
+            "item_id": "remnant_extract",
+            "name": "Remnant Extract",
+            "type": "consumable",
+            "drop_rate": 0.5,
+            "effect": "Restore 25 HP and grant +1 Speed for 2 turns"
+          }
+        ]
+      }
+    },
+    "sentinel_commander": {
+      "enemy_id": "sentinel_commander",
+      "name": "Sentinel Commander",
+      "description": "Field commander encountered during the escape. Coordinates nearby Sentinel troops and punishes weakened targets.",
+      "tier": "elite",
+      "base_stats": {
+        "hp": 60,
+        "attack": 10,
+        "defense": 8,
+        "magic": 2,
+        "speed": 8
+      },
+      "weaknesses": [],
+      "resistances": [],
+      "moves": [
+        {
+          "move_id": "tactical_strike",
+          "name": "TACTICAL STRIKE",
+          "description": "Targets the lowest-HP player character with a heavy physical attack.",
+          "type": "physical",
+          "target": "lowest_hp_player",
+          "damage": 15,
+          "accuracy": 0.95,
+          "action_probability": 0.65,
+          "condition": "default",
+          "animation": "commander_tactical_strike"
+        },
+        {
+          "move_id": "rally",
+          "name": "RALLY",
+          "description": "Buffs up to two allied Sentinel units.",
+          "type": "support",
+          "target": "up_to_2_allies",
+          "action_probability": 0.35,
+          "condition": "allies_alive",
+          "effect": "attack_plus_3_1_turn",
+          "animation": "commander_rally"
+        }
+      ],
+      "ai_behavior": {
+        "priority": "Use RALLY while two allied Troopers are alive; otherwise pressure the weakest player character with TACTICAL STRIKE.",
+        "solo": "Use TACTICAL STRIKE aggressively."
+      },
+      "loot": {
+        "credits": {
+          "min": 35,
+          "max": 50
+        },
+        "equipment": [],
+        "consumables": []
+      }
+    }
+  },
+  "presentation_rules": {
+    "show_enemy_hp_numbers": false,
+    "show_enemy_hp_percentages": false,
+    "show_enemy_health_bars": false,
+    "readability": "Use animation, posture, damage reactions, phase changes, VFX, and behavior changes instead of HP UI."
+  },
+  "difficulty_rules": {
+    "target_feel": "old_school_demanding",
+    "auto_level_scale_enemies": false,
+    "notes": [
+      "Regular encounters may punish careless play.",
+      "Resource attrition and preparation should matter.",
+      "Internal HP thresholds may drive AI but must never be shown in the UI."
+    ]
+  }
+}
