@@ -1,10 +1,10 @@
-# Echoes Card Minigame Framework
+# Echo Grid
 
 ## Scope
 
-Echoes includes a future collectible 3x3 directional card battler inspired by the feel of classic late-1990s JRPG side games, while using original Echoes names, art, cards, rewards, opponents, and world integration.
+**Echo Grid** is Echoes' collectible 3x3 directional card battler. It is inspired by the feel of classic late-1990s JRPG side games while using original Echoes names, art, cards, rewards, opponents, and world integration.
 
-The framework exists now, but the minigame is intentionally **not available in the opening vertical slice**.
+The framework exists now, but Echo Grid is intentionally **not available in the opening vertical slice**.
 
 ## Core Match
 
@@ -61,7 +61,7 @@ Same, Plus, and Combo are enabled by default in `GameData/CardGame/rules.json`.
 
 A later pass can add:
 
-1. Original card-game name and visual identity.
+1. Echo Grid visual identity and UI treatment.
 2. A starter set of Echoes cards.
 3. Card rarity and acquisition tables.
 4. NPC opponents and opponent deck profiles.
@@ -74,8 +74,9 @@ A later pass can add:
 
 ## Design Guardrails
 
+- Echo Grid is the official in-world name of the card minigame.
 - Do not use copyrighted card art, names, UI assets, music, or game data from another title.
 - Mechanical familiarity is intentional, but Echoes should have its own card-game identity and presentation.
 - Rare cards should reward exploration, optional bosses, difficult quests, and strong NPC opponents.
 - The minigame should become meaningful side progression, not mandatory filler.
-- Do not add the minigame to the opening vertical slice unless scope is deliberately changed later.
+- Do not add Echo Grid to the opening vertical slice unless scope is deliberately changed later.
