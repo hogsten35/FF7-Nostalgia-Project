@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Character Save State",
+  "type": "object",
+  "required": ["characterId", "name", "level", "stats", "equipment", "materiaLoadout"],
+  "properties": {
+    "characterId": { "type": "string" },
+    "name": { "type": "string" },
+    "level": { "type": "integer", "minimum": 1, "maximum": 99 },
+    "experience": { "type": "integer", "minimum": 0 },
+    "stats": {
+      "type": "object",
+      "required": ["hp", "mp", "strength", "speed"],
+      "properties": {
+        "hp": { "$ref": "#/$defs/resource" },
+        "mp": { "$ref": "#/$defs/resource" },
+        "strength": { "type": "integer", "minimum": 1, "maximum": 255 },
+        "speed": { "type": "integer", "minimum": 1, "maximum": 255 }
+      }
+    },
+    "equipment": {
+      "type": "object",
+      "required": ["weapon", "armor"],
+      "properties": {
+        "weapon": { "$ref": "#/$defs/equipment" },
+        "armor": { "$ref": "#/$defs/equipment" }
+      }
+    },
+    "materiaLoadout": {
+      "type": "object",
+      "required": ["weaponSlots", "armorSlots"],
+      "properties": {
+        "weaponSlots": { "type": "array", "items": { "$ref": "#/$defs/materiaSlot" } },
+        "armorSlots": { "type": "array", "items": { "$ref": "#/$defs/materiaSlot" } }
+      }
+    }
+  },
+  "$defs": {
+    "resource": {
+      "type": "object",
+      "required": ["current", "max"],
+      "properties": {
+        "current": { "type": "integer", "minimum": 0 },
+        "max": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "equipment": {
+      "type": "object",
+      "required": ["itemId", "name", "slotCount"],
+      "properties": {
+        "itemId": { "type": "string" },
+        "name": { "type": "string" },
+        "slotCount": { "type": "integer", "minimum": 0, "maximum": 8 }
+      }
+    },
+    "materiaSlot": {
+      "type": "object",
+      "required": ["slotId", "linked", "materia"],
+      "properties": {
+        "slotId": { "type": "integer", "minimum": 0 },
+        "linked": { "type": "boolean" },
+        "linkedSlotId": { "type": ["integer", "null"] },
+        "materia": {
+          "anyOf": [
+            { "$ref": "#/$defs/materia" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "materia": {
+      "type": "object",
+      "required": ["materiaId", "name", "type", "level", "ap"],
+      "properties": {
+        "materiaId": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["magic", "support", "command", "independent", "summon"] },
+        "level": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "ap": {
+          "type": "object",
+          "required": ["current", "nextLevel", "master"],
+          "properties": {
+            "current": { "type": "integer", "minimum": 0 },
+            "nextLevel": { "type": "integer", "minimum": 0 },
+            "master": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    }
+  }
+}
