@@ -1,6 +1,6 @@
 {
-  "game_id": "echoes_card_grid",
-  "working_title": "Card Grid",
+  "game_id": "echo_grid",
+  "working_title": "Echo Grid",
   "board_width": 3,
   "board_height": 3,
   "hand_size": 5,
@@ -18,6 +18,7 @@
     "elemental": false
   },
   "design_notes": [
+    "Echo Grid is the official in-world name of the collectible card minigame.",
     "Core game uses a 3x3 grid and five cards per player.",
     "Each card has north, east, south, and west ranks.",
     "Normal capture occurs when the placed card's touching rank is greater than the opposing card's touching rank.",
