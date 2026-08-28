@@ -11,6 +11,11 @@ var cipher = BattleActorFactory.CreateCharacter(cipherDefinition);
 var trooperA = BattleActorFactory.CreateEnemy(trooperDefinition, "a");
 var trooperB = BattleActorFactory.CreateEnemy(trooperDefinition, "b");
 var enemies = new[] { trooperA, trooperB };
+var definitionByActorId = new Dictionary<string, EnemyDefinition>
+{
+    [trooperA.Id] = trooperDefinition,
+    [trooperB.Id] = trooperDefinition
+};
 
 var engine = new BattleEngine(
     new[] { cipher },
@@ -18,7 +23,7 @@ var engine = new BattleEngine(
     new DamageResolver(seed: 7));
 
 var timeline = new ATBBattleController(new[] { cipher, trooperA, trooperB });
-var enemyAI = new EnemyAI(seed: 11);
+var enemyAI = new EnemyMoveAI(seed: 11);
 BattleActor? awaitingPlayer = null;
 
 engine.OnBattleLog += Console.WriteLine;
@@ -29,20 +34,31 @@ timeline.OnActorReady += actor =>
     if (!actor.IsAlive || engine.Result != BattleResult.InProgress)
         return;
 
+    if (actor.ConsumeRemovedTurn())
+    {
+        Console.WriteLine($"{actor.Name} remains obscured by smoke and misses the turn.");
+        timeline.ConsumeTurn(actor);
+        return;
+    }
+
     if (actor.IsPlayerControlled)
     {
         awaitingPlayer = actor;
         return;
     }
 
-    var command = enemyAI.ChooseCommand(actor);
-    engine.Execute(actor, command, cipher);
+    var definition = definitionByActorId[actor.Id];
+    var move = enemyAI.ChooseMove(definition, actor, enemies);
+    var target = move.Target == "self" ? actor : cipher;
+
+    engine.ExecuteEnemyMove(actor, move, target);
     timeline.ConsumeTurn(actor);
 };
 
 Console.WriteLine("ECHOES - Act 1 Battle Harness");
 Console.WriteLine("Black Site patrol: Cipher Vocc vs. 2 Sentinel Troopers");
 Console.WriteLine("Enemy HP is intentionally hidden.");
+Console.WriteLine("Sentinel behavior is loaded from GameData/Act1/enemy_definitions.json.");
 Console.WriteLine("Commands: 1 Attack | 4 Defend\n");
 
 while (engine.Result == BattleResult.InProgress)
@@ -54,7 +70,15 @@ while (engine.Result == BattleResult.InProgress)
 
     Console.WriteLine($"\nCipher HP {cipher.CurrentHP}/{cipher.MaxHP}");
 
-    var livingEnemies = enemies.Where(enemy => enemy.IsAlive).ToArray();
+    var livingEnemies = enemies.Where(enemy => enemy.IsTargetable).ToArray();
+    if (livingEnemies.Length == 0)
+    {
+        Console.WriteLine("No enemy is currently targetable.");
+        timeline.ConsumeTurn(cipher);
+        awaitingPlayer = null;
+        continue;
+    }
+
     for (var i = 0; i < livingEnemies.Length; i++)
         Console.WriteLine($"{i + 1}. {livingEnemies[i].Name}");
 
