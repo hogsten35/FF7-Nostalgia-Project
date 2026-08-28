@@ -13,5 +13,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>GameData/Act1/%(Filename)%(Extension)</Link>
     </Content>
+    <Content Include="GameData/Magic/*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>GameData/Magic/%(Filename)%(Extension)</Link>
+    </Content>
   </ItemGroup>
 </Project>
