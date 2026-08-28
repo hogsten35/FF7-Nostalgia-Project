@@ -1,0 +1,187 @@
+{
+  "equipment": [
+    {
+      "item_id": "sentinel_uniform_piece",
+      "name": "Sentinel Uniform Piece",
+      "type": "armor",
+      "rarity": "common",
+      "slot": "chest",
+      "stats": {
+        "defense": 2,
+        "hp": 5
+      },
+      "drop_sources": ["sentinel_trooper"],
+      "drop_rate": 0.5,
+      "sell_value": 50
+    },
+    {
+      "item_id": "drone_core",
+      "name": "Drone Core",
+      "type": "weapon_mod",
+      "rarity": "common",
+      "compatible_weapons": ["ranged"],
+      "stats": {
+        "attack": 1
+      },
+      "drop_sources": ["surveillance_drone"],
+      "drop_rate": 0.6,
+      "sell_value": 75
+    },
+    {
+      "item_id": "remnant_core",
+      "name": "Remnant Core",
+      "type": "accessory",
+      "rarity": "uncommon",
+      "slot": "accessory",
+      "stats": {
+        "magic": 2
+      },
+      "passive_effect": "User gains 1 HP/turn in combat",
+      "drop_sources": ["remnant_collector"],
+      "drop_rate": 0.7,
+      "sell_value": 150
+    },
+    {
+      "item_id": "guardian_core",
+      "name": "Guardian Core",
+      "type": "armor",
+      "rarity": "rare",
+      "slot": "chest",
+      "stats": {
+        "defense": 3,
+        "hp": 20
+      },
+      "drop_sources": ["extraction_chamber_guardian"],
+      "drop_rate": 1.0,
+      "sell_value": 400
+    }
+  ],
+  "consumables": [
+    {
+      "item_id": "first_aid_kit",
+      "name": "First Aid Kit",
+      "type": "healing",
+      "effect": "Restore 30 HP to single target",
+      "drop_sources": ["facility_loot_boxes"],
+      "drop_rate": 0.3,
+      "sell_value": 25,
+      "max_stack": 5
+    },
+    {
+      "item_id": "energy_drink",
+      "name": "Energy Drink",
+      "type": "buff",
+      "effect": "Restore 20 HP and grant +1 SPD for 2 turns",
+      "drop_sources": ["sentinel_trooper"],
+      "drop_rate": 0.2,
+      "sell_value": 40,
+      "max_stack": 3
+    },
+    {
+      "item_id": "remnant_extract",
+      "name": "Remnant Extract",
+      "type": "healing_buff",
+      "effect": "Restore 25 HP and grant +1 SPD for 2 turns",
+      "drop_sources": ["remnant_collector"],
+      "drop_rate": 0.5,
+      "sell_value": 75,
+      "max_stack": 3
+    },
+    {
+      "item_id": "stimulant",
+      "name": "Stimulant",
+      "type": "buff",
+      "effect": "Grant +3 ATK for 3 turns",
+      "drop_sources": ["facility_safes"],
+      "drop_rate": 0.15,
+      "sell_value": 100,
+      "max_stack": 2
+    },
+    {
+      "item_id": "rifle_clip",
+      "name": "Standard Rifle Clip",
+      "type": "ammo",
+      "effect": "Restores 1 ammo to ranged users",
+      "drop_sources": ["sentinel_trooper"],
+      "drop_rate": 0.3,
+      "sell_value": 15,
+      "max_stack": 10
+    }
+  ],
+  "key_items": [
+    {
+      "item_id": "forged_keycard",
+      "name": "Forged Keycard",
+      "type": "quest_item",
+      "description": "Opens exterior security gate. Allows entry to facility.",
+      "source": "Petra (apartment dialogue)",
+      "required_for": "black_site_exterior_gate",
+      "stackable": false
+    },
+    {
+      "item_id": "research_fragment",
+      "name": "Research Fragment",
+      "type": "quest_item",
+      "description": "Triggers Act 1 questline. Petra wants to know what's on it.",
+      "source": "Guardian loot",
+      "required_for": "act_2_questline",
+      "stackable": false
+    },
+    {
+      "item_id": "research_note_1",
+      "name": "Research Note - Subject Status",
+      "type": "lore_item",
+      "description": "Subject has unusual resilience to sedation...",
+      "source": "Facility interior exploration",
+      "stackable": false,
+      "lore_flag": "found_research_note_1"
+    },
+    {
+      "item_id": "audio_log_1",
+      "name": "Audio Log - Dr. Chen",
+      "type": "lore_item",
+      "description": "...the program has taken lives. I don't know how much longer...",
+      "source": "Facility interior exploration",
+      "stackable": false,
+      "lore_flag": "found_audio_log_1"
+    }
+  ],
+  "currency_drops": {
+    "sentinel_trooper": {
+      "min": 15,
+      "max": 25,
+      "avg": 20
+    },
+    "surveillance_drone": {
+      "min": 20,
+      "max": 35,
+      "avg": 27
+    },
+    "remnant_collector": {
+      "min": 30,
+      "max": 50,
+      "avg": 40
+    },
+    "extraction_chamber_guardian": {
+      "min": 80,
+      "max": 80,
+      "avg": 80
+    }
+  },
+  "loot_table_summary": {
+    "total_credits_available": {
+      "min": 300,
+      "max": 400,
+      "description": "Total if full looting of all enemies"
+    },
+    "total_xp_available": {
+      "min": 400,
+      "max": 500,
+      "description": "Total if defeating all enemies and bosses"
+    },
+    "equipment_upgrades_available": {
+      "count": 4,
+      "description": "Depends on enemy encounters and exploration"
+    }
+  }
+}
