@@ -1,0 +1,22 @@
+{
+  "cards": {},
+  "content_status": "framework_only",
+  "available_in_vertical_slice": false,
+  "notes": [
+    "No collectible card identities are canon in this file yet.",
+    "Future cards should use original Echoes characters, creatures, factions, locations, technology, and Remnant imagery.",
+    "Each card requires north, east, south, and west ranks from 1 through 10.",
+    "Card art and names must be original to Echoes."
+  ],
+  "example_schema": {
+    "card_id": "example_noncanon",
+    "name": "Example Card",
+    "north": 5,
+    "east": 4,
+    "south": 3,
+    "west": 6,
+    "element": "none",
+    "rarity": "common",
+    "art_key": "card_example_noncanon"
+  }
+}
