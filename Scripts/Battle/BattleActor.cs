@@ -17,7 +17,9 @@ namespace FF7Nostalgia.Core.Battle
         public int MagicDefense { get; }
         public int Speed { get; }
         public bool IsDefending { get; private set; }
+        public int RemovedTurnsRemaining { get; private set; }
         public bool IsAlive => CurrentHP > 0;
+        public bool IsTargetable => IsAlive && RemovedTurnsRemaining == 0;
 
         public BattleActor(string id, string name, bool isPlayerControlled, int maxHP, int maxMP,
             int strength, int defense, int magic, int magicDefense, int speed)
@@ -54,5 +56,17 @@ namespace FF7Nostalgia.Core.Battle
 
         public void BeginTurn() => IsDefending = false;
         public void Defend() => IsDefending = true;
+
+        public void RemoveFromCombatForTurns(int turns)
+        {
+            RemovedTurnsRemaining = Math.Max(RemovedTurnsRemaining, Math.Max(0, turns));
+        }
+
+        public bool ConsumeRemovedTurn()
+        {
+            if (RemovedTurnsRemaining <= 0) return false;
+            RemovedTurnsRemaining--;
+            return true;
+        }
     }
 }
