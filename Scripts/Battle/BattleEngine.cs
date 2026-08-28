@@ -41,7 +41,19 @@ namespace FF7Nostalgia.Core.Battle
             if (Result != BattleResult.InProgress || !actor.IsAlive)
                 return false;
 
+            if (command.MPCost > 0 && actor.CurrentMP < command.MPCost)
+            {
+                OnBattleLog?.Invoke($"{actor.Name} does not have enough MP.");
+                return false;
+            }
+
+            if (command.Type != BattleCommandType.Defend && !target.IsTargetable && command.Effect != BattleCommandEffect.Revive)
+                return false;
+
             actor.BeginTurn();
+
+            if (command.MPCost > 0 && !actor.SpendMP(command.MPCost))
+                return false;
 
             switch (command.Type)
             {
@@ -50,25 +62,18 @@ namespace FF7Nostalgia.Core.Battle
                     OnBattleLog?.Invoke($"{actor.Name} defends.");
                     break;
 
-                case BattleCommandType.Magic when command.Id == "cure":
-                    if (!actor.SpendMP(command.MPCost))
-                    {
-                        OnBattleLog?.Invoke($"{actor.Name} does not have enough MP.");
-                        return false;
-                    }
+                case BattleCommandType.Magic when command.Effect == BattleCommandEffect.Heal:
                     var healing = _damageResolver.CalculateHealing(actor, command);
                     target.Heal(healing);
                     OnHeal?.Invoke(target, healing);
                     OnBattleLog?.Invoke($"{actor.Name} casts {command.DisplayName}. {target.Name} recovers {healing} HP.");
                     break;
 
+                case BattleCommandType.Magic when command.Effect is BattleCommandEffect.Status or BattleCommandEffect.Revive:
+                    OnBattleLog?.Invoke($"{command.DisplayName} is defined but this effect is not executable yet.");
+                    return false;
+
                 default:
-                    if (command.MPCost > 0 && !actor.SpendMP(command.MPCost))
-                    {
-                        OnBattleLog?.Invoke($"{actor.Name} does not have enough MP.");
-                        return false;
-                    }
-                    if (!target.IsTargetable) return false;
                     var damage = _damageResolver.CalculateDamage(actor, target, command);
                     target.ApplyDamage(damage);
                     OnDamage?.Invoke(actor, target, damage);
