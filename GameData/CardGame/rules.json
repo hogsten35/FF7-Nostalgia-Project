@@ -1,0 +1,30 @@
+{
+  "game_id": "echoes_card_grid",
+  "working_title": "Card Grid",
+  "board_width": 3,
+  "board_height": 3,
+  "hand_size": 5,
+  "rank_min": 1,
+  "rank_max": 10,
+  "base_capture_rule": "adjacent_side_higher_captures",
+  "available_in_vertical_slice": false,
+  "default_rules": {
+    "open_hands": false,
+    "random_hand": false,
+    "same": true,
+    "plus": true,
+    "combo": true,
+    "sudden_death": false,
+    "elemental": false
+  },
+  "design_notes": [
+    "Core game uses a 3x3 grid and five cards per player.",
+    "Each card has north, east, south, and west ranks.",
+    "Normal capture occurs when the placed card's touching rank is greater than the opposing card's touching rank.",
+    "Same triggers when two or more touching rank pairs are equal and captures eligible opposing cards.",
+    "Plus triggers when two or more touching rank sums are equal and captures eligible opposing cards.",
+    "Combo allows cards captured by Same or Plus to immediately apply normal capture checks outward.",
+    "This subsystem is not used in the opening vertical slice.",
+    "Card identities, art, factions, rewards, NPC opponents, and world placement remain non-canon until separately approved."
+  ]
+}
