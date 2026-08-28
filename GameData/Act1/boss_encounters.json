@@ -1,0 +1,188 @@
+{
+  "bosses": {
+    "extraction_chamber_guardian": {
+      "boss_id": "extraction_chamber_guardian",
+      "boss_name": "Extraction Chamber Guardian",
+      "location": "Sentinel Black Site - Extraction Chamber",
+      "difficulty": "hard_early_game",
+      "base_stats": {
+        "hp": 220,
+        "attack": 14,
+        "defense": 12,
+        "magic": 6,
+        "speed": 8
+      },
+      "description": "Security construct. Designed to protect extraction chambers. Doesn't think—only follows programs.",
+      "phases": [
+        {
+          "phase_id": "phase_1_active_defense",
+          "phase_name": "ACTIVE DEFENSE",
+          "hp_range": {
+            "min": 150,
+            "max": 220
+          },
+          "duration": "Until 150 HP reached",
+          "behavior": "Guardian is mobile, attacking relentlessly.",
+          "phase_strategy": "Survive. Damage the Guardian.",
+          "moves": [
+            {
+              "move_id": "sweep_attack",
+              "name": "SWEEP ATTACK",
+              "description": "Hits entire party.",
+              "type": "physical",
+              "target": "all",
+              "damage": 10,
+              "accuracy": 1.0,
+              "action_probability": 0.6,
+              "animation": "guardian_sweep"
+            },
+            {
+              "move_id": "focused_strike",
+              "name": "FOCUSED STRIKE",
+              "description": "Single target heavy attack.",
+              "type": "physical",
+              "target": "single",
+              "damage": 15,
+              "accuracy": 0.95,
+              "action_probability": 0.3,
+              "animation": "guardian_strike"
+            },
+            {
+              "move_id": "grapple",
+              "name": "GRAPPLE",
+              "description": "Locks target in place for 1 turn.",
+              "type": "physical",
+              "target": "single",
+              "damage": 8,
+              "accuracy": 0.9,
+              "action_probability": 0.1,
+              "condition": "adjacent",
+              "effect": "target_locked_1_turn",
+              "animation": "guardian_grapple"
+            }
+          ],
+          "player_strategy": [
+            "Use Cipher's REDIRECT/protection tools to keep Kira safe.",
+            "Guard or heal through SWEEP pressure instead of spending every ATB turn on offense.",
+            "Conserve enough recovery resources for LOCKDOWN."
+          ],
+          "environmental_hazards": []
+        },
+        {
+          "phase_id": "phase_2_lockdown",
+          "phase_name": "LOCKDOWN",
+          "hp_range": {
+            "min": 0,
+            "max": 150
+          },
+          "duration": "Until Guardian reaches 0 HP",
+          "trigger_description": "At 150 HP, Guardian stops moving and enters stationary defensive position.",
+          "behavior": "Stationary. High defense but limited offensive options.",
+          "phase_strategy": "High damage output. LOCKDOWN reduces incoming damage but Guardian is stationary.",
+          "moves": [
+            {
+              "move_id": "lockdown_defense",
+              "name": "LOCKDOWN DEFENSE",
+              "description": "Guardian takes 50% reduced damage. Cannot move or use physical attacks.",
+              "type": "defensive",
+              "passive": true,
+              "effect": "reduce_damage_taken_50_percent"
+            },
+            {
+              "move_id": "energy_pulse",
+              "name": "ENERGY PULSE",
+              "description": "AOE magic attack. Reflects back 50% of damage taken.",
+              "type": "magic",
+              "target": "all",
+              "damage": 12,
+              "accuracy": 0.95,
+              "action_probability": 0.7,
+              "effect": "reflect_damage_50_percent",
+              "animation": "guardian_pulse"
+            },
+            {
+              "move_id": "system_reset",
+              "name": "SYSTEM RESET",
+              "description": "Restores 20 HP. Can only use once per phase.",
+              "type": "utility",
+              "target": "self",
+              "action_probability": 0.3,
+              "condition": "hp_below_50_percent",
+              "usage_limit": 1,
+              "effect": "restore_20_hp",
+              "animation": "guardian_reset"
+            }
+          ],
+          "player_strategy": [
+            "LOCKDOWN halves incoming damage; choose attack windows carefully.",
+            "Survive ENERGY PULSE pressure while waiting for the Resonance disruption window.",
+            "Use the disruption window for concentrated physical damage."
+          ],
+          "environmental_hazards": []
+        }
+      ],
+      "special_interactions": [
+        {
+          "character": "KIRA",
+          "role": "protected_story_npc",
+          "condition": "Guardian enters LOCKDOWN for the first time while Kira is protected in the extraction chamber.",
+          "ability_name": "RESONANCE DISRUPTION",
+          "interaction_type": "scripted_story_combat_event",
+          "player_controlled": false,
+          "description": "Kira reacts instinctively to the Guardian's LOCKDOWN. Her Resonance disrupts the defensive field for 2 turns.",
+          "effect": "Guardian takes 2x damage during disruption. Kira suffers 15 recoil damage internally; her exact HP is not presented as an enemy-style bar.",
+          "lore_flag": "guardian_resonance_discovered",
+          "consequence": "Facility logs the anomaly. Narrative consequences are reserved for later content."
+        }
+      ],
+      "defeat_sequence": {
+        "trigger": "Guardian reaches 0 HP",
+        "event": "Guardian shuts down. Extraction chamber door opens.",
+        "rewards": {
+          "experience": 150,
+          "credits": 80,
+          "equipment": [
+            {
+              "item_id": "guardian_core",
+              "name": "Guardian Core",
+              "type": "armor",
+              "rarity": "rare",
+              "stats": {
+                "defense": 3,
+                "hp": 20
+              }
+            }
+          ],
+          "key_items": [
+            {
+              "item_id": "research_fragment",
+              "name": "Research Fragment",
+              "type": "key_item",
+              "effect": "Starts questline in Act 2"
+            }
+          ]
+        },
+        "progression_flag": "guardian_defeated",
+        "next_scene": "escape_sequence"
+      },
+      "presentation": {
+        "show_hp_numbers": false,
+        "show_hp_percentage": false,
+        "show_health_bar": false,
+        "phase_changes_are_signaled_visually": true
+      },
+      "difficulty_intent": {
+        "role": "First major preparation check",
+        "expected_experience": "An underprepared player may lose and should benefit from better item use, equipment, or a few additional levels.",
+        "rules": [
+          "No automatic level scaling.",
+          "Failure should teach the player about SWEEP, LOCKDOWN, resource conservation, and timing.",
+          "Avoid unavoidable one-shot attacks."
+        ]
+      },
+      "developer_notes": [
+        "All boss HP and phase thresholds are internal only. Never expose boss HP, percentage, or health bars in player-facing UI."
+      ]
+    }
+  }
+}

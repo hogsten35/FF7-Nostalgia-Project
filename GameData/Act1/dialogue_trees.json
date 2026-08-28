@@ -1,0 +1,382 @@
+{
+  "dialogue_trees": {
+    "apartment_petra_cipher": {
+      "scene_id": "apartment_01",
+      "scene_name": "Petra Hires Cipher",
+      "characters": [
+        "PETRA",
+        "CIPHER"
+      ],
+      "starting_node": "petra_entrance",
+      "nodes": {
+        "petra_entrance": {
+          "speaker": "PETRA",
+          "text": "You still live like a soldier. Sparse. Clean. No attachments.",
+          "audio_key": "dialogue_petra_01",
+          "next": "petra_job_offer"
+        },
+        "petra_job_offer": {
+          "speaker": "PETRA",
+          "text": "I have a job. High pay. In and out. No questions.",
+          "audio_key": "dialogue_petra_02",
+          "options": [
+            {
+              "text": "Questions would slow me down anyway.",
+              "flag": "dialogue_choice_apartment_pragmatic",
+              "next": "petra_pragmatic_response"
+            },
+            {
+              "text": "What kind of job?",
+              "flag": "dialogue_choice_apartment_cautious",
+              "next": "petra_cautious_response"
+            },
+            {
+              "text": "Not interested.",
+              "flag": "dialogue_choice_apartment_direct",
+              "next": "petra_direct_response"
+            }
+          ]
+        },
+        "petra_pragmatic_response": {
+          "speaker": "PETRA",
+          "text": "I knew you'd understand.",
+          "audio_key": "dialogue_petra_03a",
+          "next": "petra_briefing"
+        },
+        "petra_cautious_response": {
+          "speaker": "PETRA",
+          "text": "The kind where knowing too much makes you a liability.",
+          "audio_key": "dialogue_petra_03b",
+          "next": "petra_briefing"
+        },
+        "petra_direct_response": {
+          "speaker": "PETRA",
+          "text": "Reconsidering?",
+          "audio_key": "dialogue_petra_03c",
+          "event": "petra_shows_money",
+          "next": "petra_briefing"
+        },
+        "petra_briefing": {
+          "speaker": "PETRA",
+          "text": "Sentinel black site. Underground facility. You go in, retrieve what I tell you to retrieve, you come out. Twelve hours max.",
+          "audio_key": "dialogue_petra_04",
+          "options": [
+            {
+              "text": "What are we stealing?",
+              "flag": "dialogue_choice_apartment_curious",
+              "next": "petra_data_reveal"
+            },
+            {
+              "text": "How much?",
+              "flag": "dialogue_choice_apartment_money",
+              "next": "petra_money_show"
+            },
+            {
+              "text": "Why me?",
+              "flag": "dialogue_choice_apartment_suspicious",
+              "next": "petra_why_you"
+            }
+          ]
+        },
+        "petra_data_reveal": {
+          "speaker": "PETRA",
+          "text": "Data. Research files. Things Sentinel doesn't want the public knowing.",
+          "audio_key": "dialogue_petra_05a",
+          "next": "petra_final_question"
+        },
+        "petra_money_show": {
+          "speaker": "PETRA",
+          "text": "This much.",
+          "audio_key": "dialogue_petra_05b",
+          "event": "petra_opens_case",
+          "next": "petra_final_question"
+        },
+        "petra_why_you": {
+          "speaker": "PETRA",
+          "text": "Because you left Sentinel five years ago and you're still good. That combination is rare.",
+          "audio_key": "dialogue_petra_05c",
+          "next": "petra_final_question"
+        },
+        "petra_final_question": {
+          "speaker": "PETRA",
+          "text": "I've gotten you schematics. Entry point is here. Security pattern is predictable. You have a forged keycard that'll get you through the first checkpoint.",
+          "audio_key": "dialogue_petra_06",
+          "event": "petra_shows_schematic",
+          "options": [
+            {
+              "text": "When?",
+              "flag": "apartment_dialogue_complete_accepting",
+              "next": "petra_tonight",
+              "progression_flag": "apartment_dialogue_complete_accepting"
+            },
+            {
+              "text": "I need time to prepare.",
+              "flag": "apartment_dialogue_complete_hesitant",
+              "next": "petra_two_hours",
+              "progression_flag": "apartment_dialogue_complete_hesitant"
+            },
+            {
+              "text": "This feels wrong.",
+              "flag": "apartment_dialogue_complete_doubtful",
+              "next": "petra_choice",
+              "progression_flag": "apartment_dialogue_complete_doubtful"
+            }
+          ]
+        },
+        "petra_tonight": {
+          "speaker": "PETRA",
+          "text": "Tonight. The sooner the better.",
+          "audio_key": "dialogue_petra_07a",
+          "scene_end": true
+        },
+        "petra_two_hours": {
+          "speaker": "PETRA",
+          "text": "You have two hours. After that, the window closes.",
+          "audio_key": "dialogue_petra_07b",
+          "scene_end": true
+        },
+        "petra_choice": {
+          "speaker": "PETRA",
+          "text": "Wrong and profitable are often the same thing. But it's your choice.",
+          "audio_key": "dialogue_petra_07c",
+          "scene_end": true
+        }
+      }
+    },
+    "kira_discovery": {
+      "scene_id": "extraction_chamber_01",
+      "scene_name": "Kira Discovery",
+      "characters": [
+        "CIPHER",
+        "KIRA"
+      ],
+      "starting_node": "chamber_entry",
+      "nodes": {
+        "chamber_entry": {
+          "speaker": "SYSTEM",
+          "text": "[Cipher enters extraction chamber. Kira is in tank, wired to machinery.]",
+          "audio_key": "ambience_chamber",
+          "event": "chamber_visual_setup",
+          "next": "cipher_monologue"
+        },
+        "cipher_monologue": {
+          "speaker": "CIPHER",
+          "text": "[This isn't data. This is a person.]",
+          "internal_monologue": true,
+          "options": [
+            {
+              "text": "What are you?",
+              "flag": "kira_discovery_detached",
+              "next": "kira_discovery_detached_response"
+            },
+            {
+              "text": "This is insane. I'm getting you out.",
+              "flag": "kira_discovery_protective",
+              "next": "kira_discovery_protective_response"
+            },
+            {
+              "text": "[Silence. Begin disconnecting.]",
+              "flag": "kira_discovery_pragmatic",
+              "next": "kira_discovery_pragmatic_response"
+            }
+          ]
+        },
+        "kira_discovery_detached_response": {
+          "speaker": "SYSTEM",
+          "text": "Cipher touches the glass. Stares.",
+          "event": "cipher_touches_glass",
+          "next": "alarm_triggers"
+        },
+        "kira_discovery_protective_response": {
+          "speaker": "SYSTEM",
+          "text": "Cipher immediately moves to disconnect her from the machinery.",
+          "event": "cipher_starts_disconnect",
+          "next": "alarm_triggers"
+        },
+        "kira_discovery_pragmatic_response": {
+          "speaker": "SYSTEM",
+          "text": "Cipher begins methodically disconnecting tubes and wires.",
+          "event": "cipher_starts_disconnect",
+          "next": "alarm_triggers"
+        },
+        "alarm_triggers": {
+          "speaker": "SYSTEM",
+          "text": "Alarms sound. Facility shifts to RED ALERT.",
+          "audio_key": "alarm_red_alert",
+          "event": "facility_alert_red",
+          "next": "kira_awakens"
+        },
+        "kira_awakens": {
+          "speaker": "KIRA",
+          "text": "Where... where am I? Who are you?",
+          "audio_key": "dialogue_kira_01",
+          "options": [
+            {
+              "text": "Someone here to get you out. Move.",
+              "flag": "kira_response_practical",
+              "next": "kira_trusts_practical",
+              "relationship_flag": "kira_trust +1"
+            },
+            {
+              "text": "You're Kira. You're not safe here.",
+              "flag": "kira_response_direct",
+              "next": "kira_trusts_named",
+              "relationship_flag": "kira_understanding +1"
+            },
+            {
+              "text": "I don't know. But we need to go. Now.",
+              "flag": "kira_response_honest",
+              "next": "kira_trusts_honest",
+              "relationship_flag": "kira_trust +2"
+            }
+          ]
+        },
+        "kira_trusts_practical": {
+          "speaker": "KIRA",
+          "text": "Okay... okay.",
+          "audio_key": "dialogue_kira_02a",
+          "event": "kira_becomes_protected_npc",
+          "progression_flag": "kira_discovery_complete",
+          "boss_trigger": "extraction_chamber_guardian"
+        },
+        "kira_trusts_named": {
+          "speaker": "KIRA",
+          "text": "You know my name. They never told me... anyone knew my name.",
+          "audio_key": "dialogue_kira_02b",
+          "event": "kira_becomes_protected_npc",
+          "progression_flag": "kira_discovery_complete",
+          "boss_trigger": "extraction_chamber_guardian"
+        },
+        "kira_trusts_honest": {
+          "speaker": "KIRA",
+          "text": "Okay.",
+          "audio_key": "dialogue_kira_02c",
+          "event": "kira_becomes_protected_npc",
+          "progression_flag": "kira_discovery_complete",
+          "boss_trigger": "extraction_chamber_guardian"
+        }
+      }
+    },
+    "depths_reveal": {
+      "scene_id": "depths_01",
+      "scene_name": "Depths Reveal",
+      "characters": [
+        "CIPHER",
+        "KIRA",
+        "PETRA"
+      ],
+      "starting_node": "depths_entry",
+      "nodes": {
+        "depths_entry": {
+          "speaker": "SYSTEM",
+          "text": "Cipher emerges carrying Kira. Both exhausted. Alarms echo behind them.",
+          "audio_key": "ambience_depths",
+          "event": "depths_visual_setup",
+          "next": "petra_appears"
+        },
+        "petra_appears": {
+          "speaker": "PETRA",
+          "text": "You got her. Good.",
+          "audio_key": "dialogue_petra_depths_01",
+          "next": "cipher_questions"
+        },
+        "cipher_questions": {
+          "speaker": "CIPHER",
+          "text": "This wasn't the job.",
+          "audio_key": "dialogue_cipher_depths_01",
+          "next": "petra_responds"
+        },
+        "petra_responds": {
+          "speaker": "PETRA",
+          "text": "No. It's bigger than the job. Come on. Safe house isn't far.",
+          "audio_key": "dialogue_petra_depths_02",
+          "event": "move_to_safe_house",
+          "next": "safe_house_interior"
+        },
+        "safe_house_interior": {
+          "speaker": "SYSTEM",
+          "text": "They reach a safe house. Petra places Kira on a cot.",
+          "audio_key": "ambience_safe_house",
+          "event": "safe_house_setup",
+          "next": "petra_medical"
+        },
+        "petra_medical": {
+          "speaker": "PETRA",
+          "text": "She needs to sleep. Her body's been under heavy sedation.",
+          "audio_key": "dialogue_petra_depths_03",
+          "next": "cipher_asks_who"
+        },
+        "cipher_asks_who": {
+          "speaker": "CIPHER",
+          "text": "Who is she, Petra?",
+          "audio_key": "dialogue_cipher_depths_02",
+          "next": "petra_secrets"
+        },
+        "petra_secrets": {
+          "speaker": "PETRA",
+          "text": "Someone the government doesn't want existing. That's all you need to know right now.",
+          "audio_key": "dialogue_petra_depths_04",
+          "next": "kira_stirs"
+        },
+        "kira_stirs": {
+          "speaker": "KIRA",
+          "text": "What is this place? Are we... safe?",
+          "audio_key": "dialogue_kira_depths_01",
+          "options": [
+            {
+              "text": "For now.",
+              "flag": "depths_cipher_honest",
+              "next": "kira_sleeps_honest"
+            },
+            {
+              "text": "Yes. Rest.",
+              "flag": "depths_cipher_reassuring",
+              "next": "kira_sleeps_reassuring"
+            },
+            {
+              "text": "[Say nothing. Just watch over her.]",
+              "flag": "depths_cipher_silent",
+              "next": "kira_sleeps_silent"
+            }
+          ]
+        },
+        "kira_sleeps_honest": {
+          "speaker": "KIRA",
+          "text": "Kira nods. Trusts.",
+          "audio_key": "dialogue_kira_depths_02",
+          "event": "kira_sleeps",
+          "next": "petra_final"
+        },
+        "kira_sleeps_reassuring": {
+          "speaker": "KIRA",
+          "text": "Kira closes eyes. Falls asleep immediately.",
+          "audio_key": "dialogue_kira_depths_03",
+          "event": "kira_sleeps",
+          "next": "petra_final"
+        },
+        "kira_sleeps_silent": {
+          "speaker": "SYSTEM",
+          "text": "Cipher and Petra sit in silence.",
+          "audio_key": "ambience_silence",
+          "event": "kira_sleeps",
+          "next": "petra_final"
+        },
+        "petra_final": {
+          "speaker": "PETRA",
+          "text": "Rest. Tomorrow we figure out what comes next.",
+          "audio_key": "dialogue_petra_depths_05",
+          "scene_end": true,
+          "progression_flag": "act_1_scene_1_complete"
+        }
+      }
+    }
+  },
+  "content_revision": {
+    "version": "1.1",
+    "notes": [
+      "Kira is a protected story NPC during the Guardian fight, not an active combatant.",
+      "Removed unsupported Cipher backstory from the Depths reveal.",
+      "Enemy and boss HP remain internal and must never be displayed to the player."
+    ]
+  }
+}
