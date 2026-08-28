@@ -1,35 +1,23 @@
 using FF7Nostalgia.Core.Battle;
+using FF7Nostalgia.Core.Data;
 
-var hero = new BattleActor(
-    id: "char_kael_001",
-    name: "Kael",
-    isPlayerControlled: true,
-    maxHP: 620,
-    maxMP: 54,
-    strength: 34,
-    defense: 20,
-    magic: 25,
-    magicDefense: 18,
-    speed: 31);
+var contentDirectory = Path.Combine(AppContext.BaseDirectory, "GameData", "Act1");
+var content = Act1ContentLoader.LoadFromDirectory(contentDirectory);
 
-var enemy = new BattleActor(
-    id: "enemy_marsh_hound",
-    name: "Marsh Hound",
-    isPlayerControlled: false,
-    maxHP: 210,
-    maxMP: 0,
-    strength: 18,
-    defense: 8,
-    magic: 6,
-    magicDefense: 7,
-    speed: 24);
+var cipherDefinition = content.Characters.Characters["cipher_vocc"];
+var trooperDefinition = content.Enemies.Enemies["sentinel_trooper"];
+
+var cipher = BattleActorFactory.CreateCharacter(cipherDefinition);
+var trooperA = BattleActorFactory.CreateEnemy(trooperDefinition, "a");
+var trooperB = BattleActorFactory.CreateEnemy(trooperDefinition, "b");
+var enemies = new[] { trooperA, trooperB };
 
 var engine = new BattleEngine(
-    new[] { hero },
-    new[] { enemy },
+    new[] { cipher },
+    enemies,
     new DamageResolver(seed: 7));
 
-var timeline = new ATBBattleController(new[] { hero, enemy });
+var timeline = new ATBBattleController(new[] { cipher, trooperA, trooperB });
 var enemyAI = new EnemyAI(seed: 11);
 BattleActor? awaitingPlayer = null;
 
@@ -48,12 +36,14 @@ timeline.OnActorReady += actor =>
     }
 
     var command = enemyAI.ChooseCommand(actor);
-    engine.Execute(actor, command, hero);
+    engine.Execute(actor, command, cipher);
     timeline.ConsumeTurn(actor);
 };
 
-Console.WriteLine("FF7 Nostalgia Project - Battle Harness");
-Console.WriteLine("Commands: 1 Attack | 2 Fire | 3 Cure | 4 Defend\n");
+Console.WriteLine("ECHOES - Act 1 Battle Harness");
+Console.WriteLine("Black Site patrol: Cipher Vocc vs. 2 Sentinel Troopers");
+Console.WriteLine("Enemy HP is intentionally hidden.");
+Console.WriteLine("Commands: 1 Attack | 4 Defend\n");
 
 while (engine.Result == BattleResult.InProgress)
 {
@@ -62,22 +52,32 @@ while (engine.Result == BattleResult.InProgress)
     if (awaitingPlayer is null)
         continue;
 
-    Console.WriteLine($"\nKael HP {hero.CurrentHP}/{hero.MaxHP} MP {hero.CurrentMP}/{hero.MaxMP}");
-    Console.WriteLine($"Marsh Hound HP {enemy.CurrentHP}/{enemy.MaxHP}");
-    Console.Write("> ");
+    Console.WriteLine($"\nCipher HP {cipher.CurrentHP}/{cipher.MaxHP}");
 
+    var livingEnemies = enemies.Where(enemy => enemy.IsAlive).ToArray();
+    for (var i = 0; i < livingEnemies.Length; i++)
+        Console.WriteLine($"{i + 1}. {livingEnemies[i].Name}");
+
+    Console.Write("Command [1 Attack / 4 Defend]: ");
     var input = Console.ReadLine();
-    var command = input switch
-    {
-        "2" => BattleCommand.Fire(),
-        "3" => BattleCommand.Cure(),
-        "4" => BattleCommand.Defend(),
-        _ => BattleCommand.Attack()
-    };
+    var command = input == "4" ? BattleCommand.Defend() : BattleCommand.Attack();
 
-    var target = command.Id == "cure" ? hero : enemy;
-    if (engine.Execute(hero, command, target))
-        timeline.ConsumeTurn(hero);
+    BattleActor target;
+    if (command.Type == BattleCommandType.Defend)
+    {
+        target = cipher;
+    }
+    else
+    {
+        Console.Write("Target number: ");
+        var targetInput = Console.ReadLine();
+        var selectedIndex = int.TryParse(targetInput, out var parsed) ? parsed - 1 : 0;
+        selectedIndex = Math.Clamp(selectedIndex, 0, livingEnemies.Length - 1);
+        target = livingEnemies[selectedIndex];
+    }
+
+    if (engine.Execute(cipher, command, target))
+        timeline.ConsumeTurn(cipher);
 
     awaitingPlayer = null;
 }
