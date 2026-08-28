@@ -98,6 +98,29 @@ Current project decision: use an **Active Time Battle (ATB)** implementation whi
 
 This is an approved implementation amendment, not original bible wording.
 
+### Enemy HP Presentation Rule
+
+Enemy and boss HP must remain hidden from the player at all times during normal gameplay.
+
+Do not display:
+- enemy HP numbers
+- enemy HP percentages
+- enemy health bars
+- boss health bars
+- UI elements that directly reveal remaining HP
+
+The battle engine may track exact HP internally for damage, phase transitions, AI, rewards, and victory conditions, but the presentation layer must not expose it.
+
+Battle readability should instead come from authored feedback such as:
+- hit reactions and animation changes
+- damaged posture or staggered movement
+- visual wear, sparks, wounds, or environmental damage where appropriate
+- phase transitions
+- behavior changes
+- combat dialogue or enemy reactions
+
+Player-party HP and MP may remain visible in the combat UI.
+
 ## Naming Rule
 
 Avoid generic AI-fantasy naming patterns and placeholder terms. New names should feel authored, grounded in the culture/function of Valence, and consistent with existing names such as Cipher Vocc, Petra Serin, Darrow Hayes, and Maisie Tang.
