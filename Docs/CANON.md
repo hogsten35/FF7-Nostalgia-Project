@@ -98,6 +98,23 @@ Current project decision: use an **Active Time Battle (ATB)** implementation whi
 
 This is an approved implementation amendment, not original bible wording.
 
+### Difficulty Philosophy
+
+Echoes should preserve an old-school JRPG sense of danger and preparation. The intended experience is deliberately challenging rather than a low-friction story walkthrough.
+
+Core rules:
+- Standard encounters must be capable of punishing careless play, especially in groups or when the party is already worn down.
+- Resource attrition matters. HP, MP, healing items, status recovery, and save/recovery opportunities should affect route decisions.
+- Players should sometimes need to stop, improve equipment, learn enemy behavior, refine ability loadouts, or gain a few levels before pushing forward.
+- A modest amount of grinding is intentional. Progression should reward preparation without requiring excessive repetitive farming.
+- Bosses should be legitimate skill and preparation checks. Entering underleveled, poorly equipped, or without understanding mechanics should create a real chance of defeat.
+- Optional encounters and exploration should provide meaningful advantages so players who engage with the world become better prepared.
+- Difficulty should come primarily from enemy patterns, resource pressure, party composition, timing, weaknesses, status effects, and tactical mistakes rather than arbitrary one-shot attacks or unavoidable randomness.
+- Victory should feel earned. The game should allow and expect occasional player defeats.
+- Do not automatically scale all enemies to the player. Areas should have meaningful power expectations so progression and returning stronger remain satisfying.
+
+Difficulty tuning should aim for the feeling of classic console JRPGs: demanding enough that preparation matters, but fair enough that players can identify why they lost and change their approach.
+
 ### Enemy HP Presentation Rule
 
 Enemy and boss HP must remain hidden from the player at all times during normal gameplay.
