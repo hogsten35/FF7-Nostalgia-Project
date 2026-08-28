@@ -1,0 +1,25 @@
+name: Validate Core C#
+
+on:
+  push:
+    branches: [ main, vertical-slice-prep ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore FF7Nostalgia.Core.csproj
+
+      - name: Build
+        run: dotnet build FF7Nostalgia.Core.csproj --configuration Release --no-restore
