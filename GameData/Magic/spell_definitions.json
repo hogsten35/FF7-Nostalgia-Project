@@ -1,0 +1,39 @@
+{
+  "spells": {
+    "fire": {"spell_id":"fire","name":"Fire","school":"black","family":"fire","tier":1,"mp_cost":4,"target":"single_enemy","effect_type":"damage","element":"fire","power":1.0,"unlock_level":1,"implemented":true},
+    "fira": {"spell_id":"fira","name":"Fira","school":"black","family":"fire","tier":2,"mp_cost":10,"target":"single_enemy","effect_type":"damage","element":"fire","power":1.8,"unlock_level":14,"implemented":true},
+    "firaga": {"spell_id":"firaga","name":"Firaga","school":"black","family":"fire","tier":3,"mp_cost":22,"target":"single_enemy","effect_type":"damage","element":"fire","power":3.0,"unlock_level":32,"implemented":true},
+
+    "blizzard": {"spell_id":"blizzard","name":"Blizzard","school":"black","family":"ice","tier":1,"mp_cost":4,"target":"single_enemy","effect_type":"damage","element":"ice","power":1.0,"unlock_level":2,"implemented":true},
+    "blizzara": {"spell_id":"blizzara","name":"Blizzara","school":"black","family":"ice","tier":2,"mp_cost":10,"target":"single_enemy","effect_type":"damage","element":"ice","power":1.8,"unlock_level":15,"implemented":true},
+    "blizzaga": {"spell_id":"blizzaga","name":"Blizzaga","school":"black","family":"ice","tier":3,"mp_cost":22,"target":"single_enemy","effect_type":"damage","element":"ice","power":3.0,"unlock_level":33,"implemented":true},
+
+    "thunder": {"spell_id":"thunder","name":"Thunder","school":"black","family":"lightning","tier":1,"mp_cost":5,"target":"single_enemy","effect_type":"damage","element":"lightning","power":1.05,"unlock_level":3,"implemented":true},
+    "thundara": {"spell_id":"thundara","name":"Thundara","school":"black","family":"lightning","tier":2,"mp_cost":11,"target":"single_enemy","effect_type":"damage","element":"lightning","power":1.9,"unlock_level":16,"implemented":true},
+    "thundaga": {"spell_id":"thundaga","name":"Thundaga","school":"black","family":"lightning","tier":3,"mp_cost":24,"target":"single_enemy","effect_type":"damage","element":"lightning","power":3.15,"unlock_level":34,"implemented":true},
+
+    "water": {"spell_id":"water","name":"Water","school":"black","family":"water","tier":1,"mp_cost":5,"target":"single_enemy","effect_type":"damage","element":"water","power":1.05,"unlock_level":5,"implemented":true},
+    "watera": {"spell_id":"watera","name":"Watera","school":"black","family":"water","tier":2,"mp_cost":11,"target":"single_enemy","effect_type":"damage","element":"water","power":1.9,"unlock_level":18,"implemented":true},
+    "waterga": {"spell_id":"waterga","name":"Waterga","school":"black","family":"water","tier":3,"mp_cost":24,"target":"single_enemy","effect_type":"damage","element":"water","power":3.15,"unlock_level":36,"implemented":true},
+
+    "cure": {"spell_id":"cure","name":"Cure","school":"white","family":"cure","tier":1,"mp_cost":4,"target":"single_ally","effect_type":"heal","element":"none","power":1.0,"unlock_level":1,"implemented":true},
+    "cura": {"spell_id":"cura","name":"Cura","school":"white","family":"cure","tier":2,"mp_cost":10,"target":"single_ally","effect_type":"heal","element":"none","power":1.8,"unlock_level":13,"implemented":true},
+    "curaga": {"spell_id":"curaga","name":"Curaga","school":"white","family":"cure","tier":3,"mp_cost":22,"target":"single_ally","effect_type":"heal","element":"none","power":3.0,"unlock_level":30,"implemented":true},
+
+    "regen": {"spell_id":"regen","name":"Regen","school":"white","family":"regen","tier":1,"mp_cost":12,"target":"single_ally","effect_type":"status","element":"none","power":0.0,"unlock_level":20,"status_effect":"regen","implemented":false},
+    "poisona": {"spell_id":"poisona","name":"Poisona","school":"white","family":"cleanse","tier":1,"mp_cost":3,"target":"single_ally","effect_type":"status_cure","element":"none","power":0.0,"unlock_level":6,"status_effect":"poison","implemented":false},
+    "esuna": {"spell_id":"esuna","name":"Esuna","school":"white","family":"cleanse","tier":2,"mp_cost":12,"target":"single_ally","effect_type":"status_cure_all","element":"none","power":0.0,"unlock_level":21,"implemented":false},
+    "life": {"spell_id":"life","name":"Life","school":"white","family":"revive","tier":1,"mp_cost":18,"target":"single_ko_ally","effect_type":"revive","element":"none","power":0.25,"unlock_level":22,"implemented":false},
+    "full_life": {"spell_id":"full_life","name":"Full-Life","school":"white","family":"revive","tier":2,"mp_cost":48,"target":"single_ko_ally","effect_type":"revive","element":"none","power":1.0,"unlock_level":42,"implemented":false},
+
+    "protect": {"spell_id":"protect","name":"Protect","school":"support","family":"barrier","tier":1,"mp_cost":8,"target":"single_ally","effect_type":"status","element":"none","power":0.0,"unlock_level":10,"status_effect":"protect","implemented":false},
+    "shell": {"spell_id":"shell","name":"Shell","school":"support","family":"barrier","tier":1,"mp_cost":8,"target":"single_ally","effect_type":"status","element":"none","power":0.0,"unlock_level":11,"status_effect":"shell","implemented":false},
+    "haste": {"spell_id":"haste","name":"Haste","school":"time","family":"haste","tier":1,"mp_cost":12,"target":"single_ally","effect_type":"status","element":"none","power":0.0,"unlock_level":17,"status_effect":"haste","implemented":false},
+    "slow": {"spell_id":"slow","name":"Slow","school":"time","family":"slow","tier":1,"mp_cost":10,"target":"single_enemy","effect_type":"status","element":"none","power":0.0,"unlock_level":17,"status_effect":"slow","implemented":false}
+  },
+  "design_rules": {
+    "tier_pattern": "Three-tier elemental and healing families use escalating MP cost, power, and unlock level.",
+    "boss_hp_visibility": "Spell damage must never reveal enemy or boss HP, HP percentages, or health bars.",
+    "progression": "Higher-tier magic should feel powerful but expensive enough that MP conservation remains part of old-school difficulty."
+  }
+}
